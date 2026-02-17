@@ -26,12 +26,21 @@
 
 import { useState } from "react"
 export default function LudoBoard(){
+    // object in state
     let [moves , setmoves] = useState({blue:0,yellow:0,green:0,red:0});
+    // array in state
+    let [arr ,setarr] = useState(["no Moves"]);
     let updateBlue = () =>{
-         console.log(moves.blue);
-        setmoves((prevMoves)=>{
+
+         setmoves((prevMoves)=>{
             return {...prevMoves,blue:prevMoves.blue +1} 
-        });};
+         });
+        setarr((prearr)=>{
+            return [...prearr,"blue"];
+        });
+        console.log(arr);
+
+    };
     let updateyellow = () =>{
          console.log(moves.yellow);
         setmoves((prevMoves)=>{
@@ -51,10 +60,11 @@ export default function LudoBoard(){
   return(
     <div>
     <h4>Game Begins</h4>
+    <p>{arr}</p>
     <div className="board">
         <p>Blue Moves ={moves.blue}</p>
         <button style={{backgroundColor:"blue"}} onClick={updateBlue}>+1</button>
-        <p>yellow Moves ={moves.yellow}</p>
+        <p>yellow Moves ={moves.yellow}</p> 
         <button style={{backgroundColor:"yellow",Color:"black"}} onClick={updateyellow}>+1</button>
         <p>Green Moves ={moves.green}</p>
         <button style={{backgroundColor:"green"}} onClick={updategreen}>+1</button>
@@ -62,4 +72,4 @@ export default function LudoBoard(){
         <button style={{backgroundColor:"red"}} onClick={updateRed}>+1</button>
     </div>
     </div>
-    )}
+   )} 
