@@ -77,12 +77,12 @@
 import { v4 as uuidv4} from 'uuid' ;
 
 export default function TodoList(){
-let [Todos ,setTodos] =useState([{task:"sample Task",id:uuidv4()}]);
+let [Todos ,setTodos] =useState([{task:"sample Task",id:uuidv4(),isDone:false}]);
 let [newTodo ,setnewTodo] =useState("");
 
 let   addnewTask =()=>{
     setTodos((prevTodo)=>{
-        return [...prevTodo,{task:newTodo , id:uuidv4()}]
+        return [...prevTodo,{task:newTodo , id:uuidv4(),isDone:false}]
     })
     setnewTodo("");
 }
@@ -112,19 +112,33 @@ let upperCaseOne =(id)=>{
     })
   );
 }
+
+let MarkDone =(id)=>{
+    setTodos((prevTodo)=>
+       prevTodo.map((todo)=>{
+        if(todo.id == id){
+            return {...todo,isDone:true}
+        }
+         return todo;
+      }));
+};
     return(  
         <div>
             <input type="text" placeholder="Enter task" value={newTodo} onChange={updateValue} /><br />
             <button onClick={addnewTask}>Add Task</button><br /><br /> 
             <hr />
             <h4>Todo List</h4>
-            <ul>{Todos.map((Todos)=>(
-                <li key={Todos.id}>
-                    <span>{Todos.task}</span>
-                    <button onClick={() =>deleteTodo(Todos.id)} >delete</button>
-                    <button onClick={() =>upperCaseOne(Todos.id)} >Uppercase</button>
+            <ul>{Todos.map((todo)=>(
+                <li key={todo.id}>
+                    <span style={todo.isDone ? { textDecoration: "line-through", color: "gray" } : {}}> 
+                        {todo.task}
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <button onClick={() =>deleteTodo(todo.id)} >delete</button>
+                    <button onClick={() =>upperCaseOne(todo.id)} >Uppercase</button>
+                    <button onClick={() => MarkDone(todo.id)} >Done</button>
                 </li>
-            ))}</ul>
+            ))} </ul>
             <button onClick={upperCaseAll}>UpperCase All</button>
             <button >Delete All</button>
         </div>

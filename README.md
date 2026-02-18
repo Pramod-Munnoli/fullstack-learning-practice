@@ -13,6 +13,9 @@ Documentation of my progress and practice with React.
 - **Array of Objects State**: Mastered managing complex state structures by updating specific objects within an array using `.map()`.
 - **UUID Integration**: Integrated the `uuid` library to ensure unique keys for list elements, improving React rendering performance and data integrity.
 
+- **Conditional Styling**: Implemented features to mark tasks as done, applying conditional styles like `textDecoration: "line-through"` and color changes based on component state.
+- **State Persistence with Objects**: Enhanced the Todo List to track task completion status (`isDone`) within the state object for each task.
+
 ---
 
 _Project is growing! More features to follow._
