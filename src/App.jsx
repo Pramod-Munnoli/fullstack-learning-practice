@@ -1,10 +1,16 @@
 import './App.css'
-import LudoBoard  from './Practice'
+import Ticket from  './Ticket'
+import Lottery from './Practice'
+
 function App() {
+
+  let winCondition = (ticket)=>{
+    return  ticket.every((num)=> num === ticket[0]); 
+  }
 
   return (
     <>
-         <LudoBoard/>
+          <Lottery n={3} winCondition={winCondition}/> 
     </>
   )
 }

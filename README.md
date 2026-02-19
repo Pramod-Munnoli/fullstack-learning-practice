@@ -16,6 +16,10 @@ Documentation of my progress and practice with React.
 - **Conditional Styling**: Implemented features to mark tasks as done, applying conditional styles like `textDecoration: "line-through"` and color changes based on component state.
 - **State Persistence with Objects**: Enhanced the Todo List to track task completion status (`isDone`) within the state object for each task.
 
+- **Component Decomposition**: Practiced breaking down the UI into smaller, reusable components (e.g., `Ticket` → `TicketNum`).
+- **Logic Abstraction**: Introduced a `helper.js` file to separate core logic (like random number generation and sum calculation) from UI components.
+- **Lottery Game Logic**: Developed the foundation for a lottery application, focusing on array generation, unique keys for mapped elements, and validation logic.
+
 ---
 
 _Project is growing! More features to follow._

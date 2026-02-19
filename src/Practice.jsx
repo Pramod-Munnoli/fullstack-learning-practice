@@ -1,5 +1,5 @@
-  import { useState } from "react"
-
+import { useState } from "react"
+import "./App.css";
 // export default function LikeButton (){
 //     let [isLiked ,setisLiked] = useState(false);
 //     let [coLike ,setcoLike] = useState(0);
@@ -74,73 +74,107 @@
 //     </div>
 //    )} 
 
-import { v4 as uuidv4} from 'uuid' ;
+// import { v4 as uuidv4} from 'uuid' ;
 
-export default function TodoList(){
-let [Todos ,setTodos] =useState([{task:"sample Task",id:uuidv4(),isDone:false}]);
-let [newTodo ,setnewTodo] =useState("");
+// export default function TodoList(){
+// let [Todos ,setTodos] =useState([{task:"sample Task",id:uuidv4(),isDone:false}]);
+// let [newTodo ,setnewTodo] =useState("");
 
-let   addnewTask =()=>{
-    setTodos((prevTodo)=>{
-        return [...prevTodo,{task:newTodo , id:uuidv4(),isDone:false}]
-    })
-    setnewTodo("");
-}
+// let   addnewTask =()=>{
+//     setTodos((prevTodo)=>{
+//         return [...prevTodo,{task:newTodo , id:uuidv4(),isDone:false}]
+//     })
+//     setnewTodo("");
+// }
 
-let updateValue =(event)=>{
-    setnewTodo(event.target.value);
-} 
+// let updateValue =(event)=>{
+//     setnewTodo(event.target.value);
+// } 
 
-let deleteTodo =(id)=>{
-    setTodos(Todos.filter((todo)=>todo.id !=id));
-}
+// let deleteTodo =(id)=>{
+//     setTodos(Todos.filter((todo)=>todo.id !=id));
+// }
 
-let upperCaseAll =()=>{
-  setTodos((prevTodo)=>
-     prevTodo.map((todo)=>{
-       return {...todo,task:todo.task.toUpperCase()}
-    }));
-}
-let upperCaseOne =(id)=>{
-      setTodos((prevTodo)=>
-        prevTodo.map((todo) =>{
-            if(todo.id == id){
-               return {...todo,task:todo.task.toUpperCase()}
-            } else {
-                return todo;
-            }
-    })
-  );
-}
+// let upperCaseAll =()=>{
+//   setTodos((prevTodo)=>
+//      prevTodo.map((todo)=>{
+//        return {...todo,task:todo.task.toUpperCase()}
+//     }));
+// }
 
-let MarkDone =(id)=>{
-    setTodos((prevTodo)=>
-       prevTodo.map((todo)=>{
-        if(todo.id == id){
-            return {...todo,isDone:true}
-        }
-         return todo;
-      }));
-};
-    return(  
+// let upperCaseOne =(id)=>{
+//       setTodos((prevTodo)=>
+//         prevTodo.map((todo) =>{
+//             if(todo.id == id){
+//                return {...todo,task:todo.task.toUpperCase()}
+//             } else {
+//                 return todo;
+//             }
+//     })
+//   );
+// }
+
+// let MarkDone =(id)=>{
+//     setTodos((prevTodo)=>
+//        prevTodo.map((todo)=>{
+//         if(todo.id == id){
+//             return {...todo,isDone:true}
+//         }
+//          return todo;
+//       }));
+// };
+
+
+// let markDoneAll =()=>{
+//   setTodos((prevTodo)=>
+//      prevTodo.map((todo)=>{
+//        return {...todo,isDone:true}
+//     }));
+// }
+//     return(  
+//         <div>
+//             <input type="text" placeholder="Enter task" value={newTodo} onChange={updateValue} /><br />
+//             <button onClick={addnewTask}>Add Task</button><br /><br /> 
+//             <hr />
+//             <h4>Todo List</h4>
+//             <ul>{Todos.map((todo)=>(
+//                 <li key={todo.id}>
+//                     <span style={todo.isDone ? { textDecoration: "line-through", color: "gray" } : {}}> 
+//                         {todo.task}
+//                     </span>
+//                     &nbsp;&nbsp;&nbsp;
+//                     <button onClick={() =>deleteTodo(todo.id)} >delete</button>
+//                     <button onClick={() =>upperCaseOne(todo.id)} >Uppercase</button>
+//                     <button onClick={() => MarkDone(todo.id)} >Done</button>
+//                 </li>
+//             ))} </ul>
+//             <button onClick={markDoneAll}>Mark All</button>
+//             <button >Delete All</button>
+//         </div>
+//     )
+// }
+
+
+import { genTicket } from "./helper"
+import Ticket from "./Ticket";
+import Button from "./Button";
+export default function Lottery({n=3 ,winCondition}){
+
+    let [ticket,setticket]=useState(genTicket(n));
+    let isWinning = winCondition(ticket);
+
+    let Buyticket=()=>{
+        setticket(genTicket(n));
+    }
+
+    return(
         <div>
-            <input type="text" placeholder="Enter task" value={newTodo} onChange={updateValue} /><br />
-            <button onClick={addnewTask}>Add Task</button><br /><br /> 
-            <hr />
-            <h4>Todo List</h4>
-            <ul>{Todos.map((todo)=>(
-                <li key={todo.id}>
-                    <span style={todo.isDone ? { textDecoration: "line-through", color: "gray" } : {}}> 
-                        {todo.task}
-                    </span>
-                    &nbsp;&nbsp;&nbsp;
-                    <button onClick={() =>deleteTodo(todo.id)} >delete</button>
-                    <button onClick={() =>upperCaseOne(todo.id)} >Uppercase</button>
-                    <button onClick={() => MarkDone(todo.id)} >Done</button>
-                </li>
-            ))} </ul>
-            <button onClick={upperCaseAll}>UpperCase All</button>
-            <button >Delete All</button>
-        </div>
+             <h1>Lottery Gmae!</h1>
+              <Ticket ticket={ticket}/>
+             <br />
+             <Button action={Buyticket} /> 
+             <h3>{isWinning && "Congratulations you are won!"}</h3>
+        </div >
     )
 }
+
