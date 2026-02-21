@@ -20,6 +20,9 @@ Documentation of my progress and practice with React.
 - **Logic Abstraction**: Introduced a `helper.js` file to separate core logic (like random number generation and sum calculation) from UI components.
 - **Lottery Game Logic**: Developed the foundation for a lottery application, focusing on array generation, unique keys for mapped elements, and validation logic.
 
+- **useEffect Hook**: Explored the `useEffect` hook to handle side effects like data fetching and initial component mounting.
+- **Async Data Fetching**: Learned to fetch data from APIs using `fetch` and `async/await`. Fixed a common pitfall by ensuring `response.json()` is awaited to resolve its promise before accessing data.
+
 ---
 
 _Project is growing! More features to follow._

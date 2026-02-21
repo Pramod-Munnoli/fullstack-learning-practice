@@ -1,16 +1,32 @@
-import { useState} from "react";
+import { useState ,useEffect} from "react";
 export default function Counter(){
-     let[Count , setCount]= useState(0);
-     let  incCount = () => {
-       setCount(Count+1);
-       console.log(Count)
-     }
-    
+let [countx ,setcountx]=useState(0);
+let [county ,setcounty]=useState(0);
 
-    return( 
-        <div>
-            <h3>Count ={Count} </h3>
-            <button onClick={incCount}>Increment</button>
-        </div>
-    )
-} 
+let InCountsx=()=>{
+ setcountx(currCount =>currCount +1);
+ console.log(countx);
+}
+let InCountsy=()=>{
+ setcounty(currCount =>currCount +1);
+ console.log(county);
+}
+
+useEffect(function printSomethig(){
+    console.log("this is the useEfeect");
+},[countx ])
+
+
+return( 
+    <>
+    <div>
+        <h3> count ={countx}</h3>
+        <button onClick={InCountsx}>Count</button>
+    </div>
+    <div>
+        <h3> count ={county}</h3>
+        <button onClick={InCountsy}>Count</button>
+    </div>
+    </>
+)
+}

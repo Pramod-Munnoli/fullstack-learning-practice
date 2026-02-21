@@ -155,26 +155,62 @@ import "./App.css";
 // }
 
 
-import { genTicket } from "./helper"
-import Ticket from "./Ticket";
-import Button from "./Button";
-export default function Lottery({n=3 ,winCondition}){
+// import { genTicket } from "./helper"
+// import Ticket from "./Ticket";
+// import Button from "./Button";
+// export default function Lottery({n=3 ,winCondition}){
 
-    let [ticket,setticket]=useState(genTicket(n));
-    let isWinning = winCondition(ticket);
+//     let [ticket,setticket]=useState(genTicket(n));
+//     let isWinning = winCondition(ticket);
 
-    let Buyticket=()=>{
-        setticket(genTicket(n));
+//     let Buyticket=()=>{
+//         setticket(genTicket(n));
+//     }
+
+//     return(
+//         <div>
+//              <h1>Lottery Gmae!</h1>
+//               <Ticket ticket={ticket}/>
+//              <br />
+//              <Button action={Buyticket} /> 
+//              <h3>{isWinning && "Congratulations you are won!"}</h3>
+//         </div >
+//     )
+// }
+
+export default function Form(){
+    let [Formdata,setFormdata]=useState({
+        Fullname: "",
+        password: ""
+    });
+    
+    let handleInput =(e)=>{
+        setFormdata((currDta)=>{
+            return {...currDta, [e.target.name] : e.target.value};
+        })
     }
 
+    let handleSUbmit = (event)=>{
+       event.preventDefault();
+       console.log(Formdata);
+       setFormdata({
+        Fullname: "",
+        password: ""
+       });
+    }
     return(
-        <div>
-             <h1>Lottery Gmae!</h1>
-              <Ticket ticket={ticket}/>
-             <br />
-             <Button action={Buyticket} /> 
-             <h3>{isWinning && "Congratulations you are won!"}</h3>
-        </div >
+        <form action="" onSubmit={handleSUbmit}>
+            <label htmlFor="Fullname">Full Name</label><br />
+            <input type="text" id="Fullname" name="Fullname" placeholder="enter Your full name"
+             value={Formdata.Fullname} onChange={handleInput} />
+             <br /> <br />
+            <label htmlFor="password">Password</label><br />
+            <input type="text" id="password"  name="password" placeholder="enter password"
+             value={Formdata.password} onChange={handleInput}/>
+            <button>Submit</button>
+        </form>
     )
 }
+
+  
 
