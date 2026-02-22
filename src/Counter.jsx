@@ -1,4 +1,7 @@
-import { useState ,useEffect} from "react";
+
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';import { useState ,useEffect} from "react";
 export default function Counter(){
 let [countx ,setcountx]=useState(0);
 let [county ,setcounty]=useState(0);
@@ -21,11 +24,14 @@ return(
     <>
     <div>
         <h3> count ={countx}</h3>
-        <button onClick={InCountsx}>Count</button>
+        <Button onClick={InCountsx}  variant="contained">Count</Button>
     </div>
     <div>
         <h3> count ={county}</h3>
-        <button onClick={InCountsy}>Count</button>
+        <Button onClick={InCountsy} variant="contained">Count</Button>
+       <Button variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button> 
     </div>
     </>
 )

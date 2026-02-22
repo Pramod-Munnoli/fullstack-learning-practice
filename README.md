@@ -21,7 +21,12 @@ Documentation of my progress and practice with React.
 - **Lottery Game Logic**: Developed the foundation for a lottery application, focusing on array generation, unique keys for mapped elements, and validation logic.
 
 - **useEffect Hook**: Explored the `useEffect` hook to handle side effects like data fetching and initial component mounting.
-- **Async Data Fetching**: Learned to fetch data from APIs using `fetch` and `async/await`. Fixed a common pitfall by ensuring `response.json()` is awaited to resolve its promise before accessing data.
+- **Weather App Implementation**:
+  - **API Integration**: Integrated OpenWeatherMap API using `fetch` and `async/await`.
+  - **Error Handling**: Implemented robust error handling with `try/catch` blocks and MUI error states to handle "City not found" or API failures.
+  - **Prop Lifting**: Practiced lifting state up from `Searchbox` to `WeatherApp` to update the global weather information.
+  - **Dynamic UI**: Used Material UI (Cards, Icons, TextFields) and implemented conditional rendering to display different images and icons (Sunny, Rain, Cold) based on real-time weather data.
+  - **Clean Code**: Refactored code to remove unused variables and handle optional catch bindings.
 
 ---
 

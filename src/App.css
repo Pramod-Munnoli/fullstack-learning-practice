@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: white;
+  color: black;
 } 
 
 .Ticket{
@@ -11,5 +13,18 @@
   border-radius: 5px;
   width: 300px;
   margin-bottom: 15px;
+}
+
+.searchbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.InfoBox{
+  margin: 10px;
+  text-align: center;
 }
  

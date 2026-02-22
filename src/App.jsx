@@ -4,7 +4,10 @@ import Lottery from './Practice'
 import CommentForm from  './CommentForm'
 import Counter  from './Counter'
 import Joker from './joke'
-
+import Button from './Button'
+import Searchbox from './Searchbox'
+import Info from './InfoBox'
+import WeatherApp from './WeatherApp'
 
 function App() {
 
@@ -16,8 +19,9 @@ function App() {
     <>
           {/* <Lottery n={3} winCondition={winCondition}/>  */}
          {/* <CommentForm/> */}
-         {/* <Counter /> */}
-         <Joker />
+         {/* { <Counter /> } */}
+         {/* <Joker /> */} 
+         <WeatherApp/>
    </>
   )
 }
