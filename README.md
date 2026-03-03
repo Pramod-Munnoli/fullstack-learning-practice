@@ -26,6 +26,7 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 - **ES Modules (ESM)**: Configured `package.json` with `"type": "module"` to use modern `import/export` syntax.
 - **Express Routing**: Created route handlers (`app.get`) to serve data and simple messages.
 - **JSON Handling**: Mastered sending JSON responses (`res.json`) to be consumed by frontends.
+- **NPM Packages**: Integrated external packages like `figlet` to create ASCII art in the console.
 - **Development Workflow**: Using `nodemon` for automatic server restarts and `npm` scripts for efficiency.
 - **Module Architecture**: Organized code using child modules (e.g., fruit data split into individual files) and exporting them through a central `index.js`.
 
