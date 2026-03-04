@@ -36,10 +36,17 @@ To get this project up and running on your local machine, follow these steps:
 ### 🟢 Backend (Node.js & Express)
 
 - **Express Server**: Configured routes, ports, and middleware foundations.
+- **Core Server Methods**: Mastered the distinction between `app.get()` (specific routes), `app.use()` (global middleware/filters), and `app.listen()` (the "start button" for the server).
+- **HTTP Methods Deep Dive**: Understanding specific use cases for `GET` (fetching data) vs `POST` (submitting/creating data).
+- **Dynamic Routing**: Implemented **Path Parameters** (e.g., `/:username/:id`) to handle dynamic URLs and extract data using `req.params`.
+- **Query Strings**: Utilized `req.query` to extract data from search parameters (e.g., `/search?q=apple`) and implemented basic validation for search queries.
+- **Templating with EJS**: Integrated the **EJS (Embedded JavaScript)** template engine to generate dynamic HTML responses.
+  - Configured via `app.set("view engine", "ejs")`.
+  - Organized templates in a dedicated `/views` directory.
+  - Used `res.render()` to serve dynamic content with injected JavaScript logic.
 - **ES Modules (ESM)**: Utilizing modern `import/export` syntax via `"type": "module"`.
 - **Modular Data Architecture**: Developed a "Fruit API" that exports data from organized child modules (`/fruts`).
-- **Middleware Mastery**: Implemented global middleware (`app.use`) to handle requests and provide custom HTML responses.
-- **Utility Integrations**: Experimented with packages like `figlet` for stylized console output during development.
+- **Middleware Mastery**: Implemented global middleware to handle requests and provide custom HTML responses.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
