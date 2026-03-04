@@ -1,0 +1,13 @@
+ <%- include("include/head.ejs") %> 
+<body>
+    <h1>Dice gave value is :
+        <% if(rolldice ===6){ %>
+            <h1>You won</h1>
+        <% }else{ %>
+            <h1>You lost</h1>
+        <% } %>
+        <button onclick="location.reload()">Roll Dice</button>
+    </h1>
+    <p> <%= rolldice %></p>
+</body>
+</html>

@@ -43,9 +43,13 @@ To get this project up and running on your local machine, follow these steps:
 - **Templating with EJS**: Integrated the **EJS (Embedded JavaScript)** template engine to generate dynamic HTML responses.
   - Configured via `app.set("view engine", "ejs")`.
   - Organized templates in a dedicated `/views` directory.
-  - Used `res.render()` to serve dynamic content with injected JavaScript logic.
-- **ES Modules (ESM)**: Utilizing modern `import/export` syntax via `"type": "module"`.
-- **Modular Data Architecture**: Developed a "Fruit API" that exports data from organized child modules (`/fruts`).
+  - **Modular Architecture (Partials)**: Implemented EJS partials (using `<%- include(...) %>`) to create reusable UI components like a global `<head>` with shared CSS.
+  - **Data Injection**: Mastered passing dynamic data from Express routes to EJS views using the `res.render("template", { key: value })` syntax.
+  - **In-Template Logic**: Utilizing `<%= ... %>` for values, `<% ... %>` for control flow (loops, conditionals), and `<%- ... %>` for raw HTML/partials.
+- **ES Modules (ESM) & JSON**: Utilizing modern `import/export` syntax via `"type": "module"` and importing JSON data directly using the `with { type: "json" }` assertion.
+- **Modular Data Architecture**: Developed a dynamic profile system that fetches structured data from organized JSON sources.
+- **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
+- **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
 - **Middleware Mastery**: Implemented global middleware to handle requests and provide custom HTML responses.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
@@ -78,6 +82,16 @@ A sleek, Tailwind-styled registration form demonstrating:
 ### 🎰 Logic Games
 
 - **Lottery**: A logic-heavy system demonstrating state-driven win conditions and UI reactivity.
+- **Roll Dice**: A backend-driven mini-game where Express generates a random value (1-6) and renders it dynamically using a modular EJS template.
+
+### 📸 Instagram Profile Mockup
+
+A dynamic backend project demonstrating real-world data rendering:
+
+- **Dynamic Routing**: Automatically serves different profiles based on URL sub-paths (e.g., `/ig/cats`).
+- **Data Integration**: Loads user statistics and post data from structured JSON objects.
+- **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
+- **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
 ---
 

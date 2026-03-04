@@ -1,0 +1,22 @@
+<%- include("include/head.ejs") %>  
+<body>
+    <h1>This is instagram</h1>
+    <p>Username: @<%= instadata.name %></p>
+    <button>Follow</button>
+    <button>Message</button>
+    <button>Logout</button>
+    
+    <p>Followers: <%= instadata.followers %> | Following: <%= instadata.following %></p>
+    
+    <hr>
+    <h3>Posts</h3>
+    <ul>
+        <% for(let post of instadata.posts) { %>
+            <li>
+                <img src="<%= post.image %>" alt="Post" width="100">
+                <p>Likes: <%= post.likes %> | Comments: <%= post.comments %></p>
+            </li>
+        <% } %>
+    </ul>
+</body>
+</html>
