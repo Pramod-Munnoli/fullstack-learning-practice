@@ -11,6 +11,17 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 
 ---
 
+## 🚀 Getting Started
+
+To get this project up and running on your local machine, follow these steps:
+
+### 📥 Prerequisites
+
+- **Node.js**: Ensure you have Node.js installed (LTS version recommended).
+- **npm**: Comes bundled with Node.js.
+
+---
+
 ## ✅ Key Learning Milestones
 
 ### ⚛️ Frontend (React & Styling)
@@ -26,7 +37,9 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 
 - **Express Server**: Configured routes, ports, and middleware foundations.
 - **ES Modules (ESM)**: Utilizing modern `import/export` syntax via `"type": "module"`.
-- **Modular Data Architecture**: Developed a "Fruit API" that exports data from organized child modules.
+- **Modular Data Architecture**: Developed a "Fruit API" that exports data from organized child modules (`/fruts`).
+- **Middleware Mastery**: Implemented global middleware (`app.use`) to handle requests and provide custom HTML responses.
+- **Utility Integrations**: Experimented with packages like `figlet` for stylized console output during development.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
