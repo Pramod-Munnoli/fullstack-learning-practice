@@ -6,58 +6,66 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 
 ## 🏗️ Project Structure
 
-- **/client**: Frontend React application built with Vite and MUI.
+- **/client**: Frontend React application built with Vite, MUI, and Tailwind CSS.
 - **/server**: Backend Node.js & Express server.
 
 ---
 
 ## ✅ Key Learning Milestones
 
-### ⚛️ Frontend (React & Vite)
+### ⚛️ Frontend (React & Styling)
 
-- **State & Props**: Mastered `useState` with objects and arrays, including the spread operator (`...`) for immutable updates.
-- **Lifting State Up**: Implemented ticket and lottery logic through shared parent state.
-- **Hooks & Side Effects**: Deep dived into `useEffect` for handling API calls and mounting logic.
-- **Component Ecosystem**: Developed modular components like `WeatherApp`, `CommentForm`, `Counter`, and `Lottery`.
-- **Material UI (MUI)**: Used for professional icons, layouts, and interactive elements.
-- **API Integration**: Integrated real-world APIs like OpenWeatherMap with `fetch` and `async/await`.
+- **Advanced Styling**: Integrated **Tailwind CSS v4** with PostCSS for modern, utility-first styling.
+- **Form Handling**: Mastered controlled components and `event.preventDefault()` for custom form submission logic.
+- **Dynamic UI Components**: Created responsive product cards and pricing tabs using props-driven data arrays.
+- **State & Props**: Professional use of `useState` with objects/arrays and the spread operator (`...`).
+- **Lifting State Up**: Architected game logic through shared parent state for the Lottery system.
+- **Material UI (MUI)**: Combined with Tailwind for a comprehensive component library experience.
 
 ### 🟢 Backend (Node.js & Express)
 
-- **Express Server**: Configured routes, ports, and middleware.
-- **ES Modules (ESM)**: Using modern `import/export` syntax via `"type": "module"`.
-- **API Construction**: Developed a "Fruit API" that serves data from modular JSON files.
-- **Console Utilities**: Integrated packages like `figlet` to create ASCII art for server logs.
-- **Development Workflow**: Using `nodemon` for automatic restarts during coding.
+- **Express Server**: Configured routes, ports, and middleware foundations.
+- **ES Modules (ESM)**: Utilizing modern `import/export` syntax via `"type": "module"`.
+- **Modular Data Architecture**: Developed a "Fruit API" that exports data from organized child modules.
+- **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
 
 ## 🛠️ Feature Showcases
 
+### 🛍️ Product Catalog Dashboard
+
+A modern, animated product listing UI built with Tailwind CSS:
+
+- **`ProductTab`**: A flexible flex-grid layout that renders multiple product offerings.
+- **`Products`**: Individual card components with hover animations (transform/translate) and shadow effects.
+- **`Price`**: A specialized component handling currency display and interactive "Buy Now" triggers.
+
 ### 🌦️ Weather Application
 
-A feature-rich weather dashboard using Material UI components:
+A feature-rich weather dashboard using Material UI:
 
-- `SearchBox`: Handles user input and triggers API fetching.
-- `InfoBox`: Displays temperature, humidity, and atmospheric conditions dynamically.
-- `WeatherApp`: Orchestrates the flow of data between components.
+- `SearchBox`: Real-time input handling for API queries.
+- `InfoBox`: Dynamic rendering of weather conditions and thermal statistics.
 
-### 📝 Comment System
+### 📝 Subscription Form
 
-Form-based component to manage user feedback and validation using controlled components in React.
+A sleek, Tailwind-styled registration form demonstrating:
 
-### 🎰 Lottery Game
+- Custom focus rings and transition animations.
+- Prevented default reload behavior for smooth SPA interaction.
 
-A logic-heavy component demonstrating how state can be used to manage game mechanics and win conditions.
+### 🎰 Logic Games
+
+- **Lottery**: A logic-heavy system demonstrating state-driven win conditions and UI reactivity.
 
 ---
 
 ## 🎯 Future Goals
 
-- **Database Persistence**: Integrating MongoDB/PostgreSQL.
-- **Authentication**: Implementing JWT or OAuth for secure user sessions.
-- **Advanced State**: Migrating to Context API or Redux for global state.
-- **Full Deployment**: Launching the app on Vercel or Render.
+- **Database Persistence**: Integrating MongoDB or PostgreSQL for data storage.
+- **API Deep Dive**: Adding POST/PUT/DELETE routes to the Express server.
+- **Authentication**: Implementing secure user login and session management.
 
 ---
 

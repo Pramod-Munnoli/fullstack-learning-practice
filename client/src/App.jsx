@@ -7,6 +7,7 @@ import Joker from './joke'
 import Button from './Button'
 import Searchbox from './Searchbox'
 import Info from './InfoBox'
+import Form from './form'
 import WeatherApp from './WeatherApp'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
          {/* { <Counter /> } */}
          {/* <Joker /> */} 
          <WeatherApp/>
+         <Form/>
    </>
   )
 }
