@@ -1,0 +1,19 @@
+{
+  "name": "fullstack-learning-practice",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Fullstack learning practice repository with centralized node_modules.",
+  "workspaces": [
+    "react-practice",
+    "backend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:react": "npm run dev --workspace=react-practice",
+    "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:react\"",
+    "install-all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

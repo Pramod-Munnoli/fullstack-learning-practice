@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -16,6 +16,7 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "ejs": "^4.0.1",
     "express": "^5.2.1",
     "figlet": "^1.10.0"

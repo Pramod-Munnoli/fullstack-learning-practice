@@ -6,8 +6,9 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 
 ## 🏗️ Project Structure
 
-- **/client**: Frontend React application built with Vite, MUI, and Tailwind CSS.
-- **/server**: Backend Node.js & Express server.
+- **/backend**: Node.js & Express server (Previously `/server`).
+- **/react-practice**: Frontend React application (Previously `/client`).
+- **/frontend**: A fresh workspace for vanilla JavaScript and CSS practice.
 
 ---
 
@@ -51,6 +52,18 @@ To get this project up and running on your local machine, follow these steps:
 - **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
 - **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
 - **Middleware Mastery**: Implemented global middleware to handle requests and provide custom HTML responses.
+- **Fullstack Flow & POST Handling**:
+  - **CORS (Cross-Origin Resource Sharing)**: Learned how to use the `cors` package to allow a frontend (on port 5173) to talk to a backend (on port 8080).
+  - **Body Parsing**: Implemented `express.urlencoded` and `express.json` middleware to "catch" data sent from HTML forms.
+  - **Registration System**: Built a complete flow where a form in the frontend sends data to a `/register` POST route in the backend.
+- **Modern JavaScript (OOP & Classes)**:
+  - **Constructor Functions**: Understanding the traditional `function Person` and `prototype` way of creating objects.
+  - **ES6 Classes**: Mastered the `class` syntax for cleaner, more modern object-oriented code.
+  - **Inheritance & super()**:
+    - Used `extends` to share logic between classes (e.g., `Student extends Person`).
+    - Learned to use `super()` to call the parent constructor and avoid "unexpected keyword" syntax errors.
+  - **Execution vs Reference**: Understanding the difference between `obj.talk` (the function itself) and `obj.talk()` (executing the function).
+  - **Debugging**: Solving common issues like case-sensitivity (`Std` vs `std`) and absolute paths in `res.sendFile`.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
