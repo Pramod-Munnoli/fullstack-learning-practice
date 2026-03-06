@@ -172,6 +172,16 @@ app.patch("/posts/:id",(req,res)=>{
   }
 })
 
+app.delete("/posts/:id",(req,res)=>{
+let {id}=req.params;
+ if (posts) { 
+      posts = posts.filter((p) => id !== p.id);
+      res.redirect("/posts");
+  } else {
+      res.status(404).send("Post not found");
+  }
+})
+
 app.listen(port, () => {
   console.log(`listening to port :${port}`);
 });

@@ -58,8 +58,8 @@ To get this project up and running on your local machine, follow these steps:
   - **Registration System**: Built a complete flow where a form in the frontend sends data to a `/register` POST route in the backend.
 - **RESTful API Development (CRUD Implementation)**:
   - **REST Design Patterns**: Adopting the standard REST naming conventions for resources (e.g., `GET /posts`, `POST /posts`, `PATCH /posts/:id`).
-  - **CRUD Operations**: Implemented a complete Create, Read, Update flow for a "Quora Post" simulation.
-  - **Method Override**: Integrated the `method-override` package to support `PATCH` and `DELETE` requests from standard HTML forms using query string tagging (`?_method=PATCH`).
+  - **CRUD Operations**: Implemented a complete Create, Read, Update, and Delete flow for a "Quora Post" simulation.
+  - **Method Override**: Integrated the `method-override` package to support `PATCH` and `DELETE` requests from standard HTML forms using query string tagging (`?_method=PATCH` or `?_method=DELETE`).
   - **UUID Integration**: Utilized the `uuid` package to generate globally unique identifiers for database-less data persistence.
   - **Advanced Redirection**: Mastered `res.redirect("/posts")` to provide a seamless user experience after data mutations.
 - **Modern JavaScript (OOP & Classes)**:
@@ -83,7 +83,7 @@ A fully functional "social media" post manager demonstrating backend state manag
 - **Create**: A dedicated `/posts/new` form that generates unique IDs via `uuid`.
 - **Read**: An index page (`/posts`) and individual post views (`/posts/:id`) with 404 error handling.
 - **Update**: An edit interface (`/posts/:id/edit`) utilizing `method-override` to perform `PATCH` updates on the server.
-- **Delete (Planned)**: The infrastructure is set up for restful deletion.
+- **Delete**: A restful deletion system (`/posts/:id`) that filters the global state and redirects the user.
 
 ### 🛍️ Product Catalog Dashboard
 
@@ -126,7 +126,7 @@ A dynamic backend project demonstrating real-world data rendering:
 ## 🎯 Future Goals
 
 - **Database Persistence**: Moving from memory-based arrays to **MongoDB** or **PostgreSQL**.
-- **Full CRUD completion**: Adding the `DELETE` functionality to the post system.
+- **Real-time Updates**: Exploring WebSockets or Socket.io for immediate post updates.
 - **Authentication**: Implementing secure user login and session management.
 
 ---
