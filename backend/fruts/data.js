@@ -1,4 +1,4 @@
-import Frute from "./fruts/index.js";
+import Frute from "./index.js";
 console.log(Frute);
 
 

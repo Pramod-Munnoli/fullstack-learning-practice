@@ -1,4 +1,4 @@
- <%- include("include/head.ejs") %> 
+ <!-- <%- include("include/head.ejs") %> 
   </head>
   <body>
     <div class="container">
@@ -8,4 +8,27 @@
       <p>Current Time: <%=  ["hello"] [0]%></p>
     </div>
   </body>
-</h tml>
+</h tml> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All posts</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Quora Posts</h1>
+  <% for(let post of posts) { %> 
+    <div class="posts">
+      <h3 class="username">@<%= post.username  %> </h3>
+      <h4 class="content"><%= post.content %> </h4>
+      <a href="http://localhost:3000/posts/<%= post.id %> ">show</a>
+    </div>
+  <% } %> 
+  <br><br>
+  <a href="http://localhost:3000/posts/new"> Create new post</a>
+</body>
+</html>
+
