@@ -47,7 +47,16 @@ To get this project up and running on your local machine, follow these steps:
   - **Modular Architecture (Partials)**: Implemented EJS partials (using `<%- include(...) %>`) to create reusable UI components like a global `<head>` with shared CSS.
   - **Data Injection**: Mastered passing dynamic data from Express routes to EJS views using the `res.render("template", { key: value })` syntax.
   - **In-Template Logic**: Utilizing `<%= ... %>` for values, `<% ... %>` for control flow (loops, conditionals), and `<%- ... %>` for raw HTML/partials.
-- **ES Modules (ESM) & JSON**: Utilizing modern `import/export` syntax via `"type": "module"` and importing JSON data directly using the `with { type: "json" }` assertion.
+- **CommonJS (CJS) vs ES Modules (ESM)**:
+  - **Refactoring Strategy**: Transitioned the backend architecture from ESM (`import`) back to **CommonJS** (`require`) to align with industry-standard Express tutorials and simplify the use of global variables like `__dirname`.
+  - **Module Selection**: Mastered the distinction between the two systems, opting for CJS for backend simplicity while maintaining ESM knowledge for React frontend development.
+- **Dynamic Data with Faker.js**:
+  - **Automated Mocking**: Integrated `@faker-js/faker` to generate large volumes of realistic user data (usernames, emails, UUIDs, and passwords) for testing and prototyping.
+  - **API Adaptation**: Navigated version-specific API changes (e.g., transitioning from `userName()` to `username()` and `internet.uuid()` to `string.uuid()`).
+- **Database Integration (SQL)**:
+  - **MySQL Connectivity**: Established connections to local MySQL servers using the `mysql2` driver.
+  - **Server Management**: Configured and managed a standalone **MySQL Server** using **MySQL Workbench** for database administration.
+  - **Service Configuration**: Learned to manage background services and troubleshoot connectivity between Node.js and the MySQL database engine.
 - **Modular Data Architecture**: Developed a dynamic profile system that fetches structured data from organized JSON sources.
 - **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
 - **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
@@ -125,8 +134,8 @@ A dynamic backend project demonstrating real-world data rendering:
 
 ## 🎯 Future Goals
 
-- **Database Persistence**: Moving from memory-based arrays to **MongoDB** or **PostgreSQL**.
-- **Real-time Updates**: Exploring WebSockets or Socket.io for immediate post updates.
+- **SQL Schema Design**: Designing efficient relational schemas for persistent post storage.
+- **Full DB CRUD**: Transitioning the Quora Post Simulation from in-memory arrays to a persistent **MySQL** database.
 - **Authentication**: Implementing secure user login and session management.
 
 ---
