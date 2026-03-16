@@ -47,8 +47,10 @@ To get this project up and running on your local machine, follow these steps:
   - **Modular Architecture (Partials)**: Implemented EJS partials (using `<%- include(...) %>`) to create reusable UI components like a global `<head>` with shared CSS.
   - **Data Injection**: Mastered passing dynamic data from Express routes to EJS views using the `res.render("template", { key: value })` syntax.
   - **In-Template Logic**: Utilizing `<%= ... %>` for values, `<% ... %>` for control flow (loops, conditionals), and `<%- ... %>` for raw HTML/partials.
+  - **Nested Views**: Implemented organized view management by serving templates from sub-directories (e.g., `res.render("routes_acc/home.ejs")`).
 - **CommonJS (CJS) vs ES Modules (ESM)**:
   - **Refactoring Strategy**: Transitioned the backend architecture from ESM (`import`) back to **CommonJS** (`require`) to align with industry-standard Express tutorials and simplify the use of global variables like `__dirname`.
+  - **Status**: Backend is now successfully running on **CJS**.
   - **Module Selection**: Mastered the distinction between the two systems, opting for CJS for backend simplicity while maintaining ESM knowledge for React frontend development.
 - **Dynamic Data with Faker.js**:
   - **Automated Mocking**: Integrated `@faker-js/faker` to generate large volumes of realistic user data (usernames, emails, UUIDs, and passwords) for testing and prototyping.

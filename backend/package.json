@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+
   "description": "",
   "keywords": [],
   "repository": {
@@ -13,7 +14,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
-  },
+  }, 
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
     "cors": "^2.8.6",
