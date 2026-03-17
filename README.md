@@ -59,6 +59,8 @@ To get this project up and running on your local machine, follow these steps:
   - **MySQL Connectivity**: Established connections to local MySQL servers using the `mysql2` driver.
   - **Server Management**: Configured and managed a standalone **MySQL Server** using **MySQL Workbench** for database administration.
   - **Service Configuration**: Learned to manage background services and troubleshoot connectivity between Node.js and the MySQL database engine.
+  - **Secure Parameterized Queries**: Implemented `?` placeholders in SQL queries to prevent **SQL Injection** and handle potentially dangerous characters.
+  - **Full Database CRUD**: Successfully transitioned the user management system from in-memory arrays to a persistent **MySQL** database.
 - **Modular Data Architecture**: Developed a dynamic profile system that fetches structured data from organized JSON sources.
 - **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
 - **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
@@ -86,6 +88,16 @@ To get this project up and running on your local machine, follow these steps:
 ---
 
 ## 🛠️ Feature Showcases
+
+### 🗄️ MySQL User Management System (SQL CRUD)
+
+A professional-grade backend for managing user records directly in a persistent MySQL database:
+
+- **Create**: A secure `/users/new` route that inserts new account records using parameterized `INSERT` queries.
+- **Read**: An efficient `index` route (`/users`) displaying all registered records in a responsive HTML table.
+- **Update**: A verification-first `/users/:id` PATCH route that validates the current password before authorizing an update to the username.
+- **Delete**: A multi-step `/users/:id/delete` flow that requires the user to submit their credentials (username, email, and password) for a matching record check before the record is permanently deleted.
+- **Security Check**: Integrated `.trim()` logic to ignore accidental leading/trailing spaces in form submissions.
 
 ### ✍️ Quora Post Simulation (REST CRUD)
 
@@ -136,9 +148,9 @@ A dynamic backend project demonstrating real-world data rendering:
 
 ## 🎯 Future Goals
 
-- **SQL Schema Design**: Designing efficient relational schemas for persistent post storage.
-- **Full DB CRUD**: Transitioning the Quora Post Simulation from in-memory arrays to a persistent **MySQL** database.
-- **Authentication**: Implementing secure user login and session management.
+- **Authentication Logic**: Integrating **Bcrypt** for secure password hashing before storage in MySQL.
+- **Session Management**: Implementing user logins with **Passport.js** or **Express-Session**.
+- **Complex Joins**: Expanding the database to handle relational data (e.g., users "owning" individual posts).
 
 ---
 
