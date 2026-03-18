@@ -7,6 +7,7 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 ## 🏗️ Project Structure
 
 - **/backend**: Node.js & Express server (Previously `/server`).
+  - **/backend/fruts**: Experimental modular exports practice using the `index.js` pattern.
 - **/react-practice**: Frontend React application (Previously `/client`).
 - **/frontend**: A fresh workspace for vanilla JavaScript and CSS practice.
 
@@ -64,6 +65,8 @@ To get this project up and running on your local machine, follow these steps:
 - **Database Integration (NoSQL)**:
   - **Mongoose Connectivity**: Established connections to local **MongoDB** instances using the `mongoose` Object Data Modeling (ODM) library.
   - **Schema & Model Design**: Mastered the "blueprint-to-engine" workflow: defining data shapes with **Schemas** and compiling them into **Models**.
+  - **Advanced Validation (Guardrails)**: Implemented professional schema constraints (`min`, `max`, `minLength`, `maxLength`) with descriptive custom error messages.
+  - **Update Integrity**: Leveraged the `runValidators: true` flag in Mongoose update methods to ensure data consistency during mutations.
   - **Asynchronous Database Operations**: Practiced clean `async/await` patterns for database connection and data mutation.
   - **Lazy Creation Logic**: Understanding that MongoDB automatically creates databases and collections (pluralized/lowercase) only when the first document is saved.
   - **Unified CRUD**: Translated complex SQL logic (INSERT, SELECT, UPDATE, DELETE) into intuitive Mongoose methods like `save()`, `find()`, `findByIdAndUpdate()`, and `findByIdAndDelete()`.
@@ -109,8 +112,8 @@ A professional-grade backend for managing user records directly in a persistent 
 
 A modern, schema-based user management system leveraging the flexibility of NoSQL:
 
-- **Schema Validation**: Implemented strict data typing (String, Number, Date) and automatic timestamps (`createdAt`).
-- **Object-Oriented Database Logic**: Using JavaScript class-like Models to interact with data as objects.
+- **Professional Validation**: Implemented strict data typing and advanced property constraints (e.g., minimum age of 18) with user-friendly error responses.
+- **Persistent Updates**: Ensured that schema "guardrails" remain active during updates by configuring `runValidators` explicitly.
 - **Connection Reliability**: Optimized connection strings using `127.0.0.1` for faster local resolution on Windows.
 - **Integrated CRUD**: Full implementation of data persistence, from initial connection to retrieving and updating records.
 
