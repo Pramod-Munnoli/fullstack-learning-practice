@@ -61,6 +61,12 @@ To get this project up and running on your local machine, follow these steps:
   - **Service Configuration**: Learned to manage background services and troubleshoot connectivity between Node.js and the MySQL database engine.
   - **Secure Parameterized Queries**: Implemented `?` placeholders in SQL queries to prevent **SQL Injection** and handle potentially dangerous characters.
   - **Full Database CRUD**: Successfully transitioned the user management system from in-memory arrays to a persistent **MySQL** database.
+- **Database Integration (NoSQL)**:
+  - **Mongoose Connectivity**: Established connections to local **MongoDB** instances using the `mongoose` Object Data Modeling (ODM) library.
+  - **Schema & Model Design**: Mastered the "blueprint-to-engine" workflow: defining data shapes with **Schemas** and compiling them into **Models**.
+  - **Asynchronous Database Operations**: Practiced clean `async/await` patterns for database connection and data mutation.
+  - **Lazy Creation Logic**: Understanding that MongoDB automatically creates databases and collections (pluralized/lowercase) only when the first document is saved.
+  - **Unified CRUD**: Translated complex SQL logic (INSERT, SELECT, UPDATE, DELETE) into intuitive Mongoose methods like `save()`, `find()`, `findByIdAndUpdate()`, and `findByIdAndDelete()`.
 - **Modular Data Architecture**: Developed a dynamic profile system that fetches structured data from organized JSON sources.
 - **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
 - **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
@@ -98,6 +104,15 @@ A professional-grade backend for managing user records directly in a persistent 
 - **Update**: A verification-first `/users/:id` PATCH route that validates the current password before authorizing an update to the username.
 - **Delete**: A multi-step `/users/:id/delete` flow that requires the user to submit their credentials (username, email, and password) for a matching record check before the record is permanently deleted.
 - **Security Check**: Integrated `.trim()` logic to ignore accidental leading/trailing spaces in form submissions.
+
+### 🍃 MongoDB & Mongoose User System (NoSQL CRUD)
+
+A modern, schema-based user management system leveraging the flexibility of NoSQL:
+
+- **Schema Validation**: Implemented strict data typing (String, Number, Date) and automatic timestamps (`createdAt`).
+- **Object-Oriented Database Logic**: Using JavaScript class-like Models to interact with data as objects.
+- **Connection Reliability**: Optimized connection strings using `127.0.0.1` for faster local resolution on Windows.
+- **Integrated CRUD**: Full implementation of data persistence, from initial connection to retrieving and updating records.
 
 ### ✍️ Quora Post Simulation (REST CRUD)
 
