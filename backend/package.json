@@ -14,7 +14,8 @@
     "start": "node index.js",
     "dev": "nodemon ex_mysql.js",
     "mongo": "nodemon ex_mongo.js",
-    "start:mongo": "node ex_mongo.js"
+    "start:mongo": "node ex_mongo.js",
+    "init": "node init.js"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",

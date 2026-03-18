@@ -7,7 +7,11 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 ## 🏗️ Project Structure
 
 - **/backend**: Node.js & Express server (Previously `/server`).
+  - **/backend/models**: Mongoose schemas and data models for NoSQL persistence.
+  - **/backend/views**: EJS templates for dynamic frontend rendering.
+  - **/backend/public**: Static assets (CSS, images) for the backend views.
   - **/backend/fruts**: Experimental modular exports practice using the `index.js` pattern.
+  - **/backend/init.js**: Database initialization script for seeding data.
 - **/react-practice**: Frontend React application (Previously `/client`).
 - **/frontend**: A fresh workspace for vanilla JavaScript and CSS practice.
 
@@ -21,6 +25,24 @@ To get this project up and running on your local machine, follow these steps:
 
 - **Node.js**: Ensure you have Node.js installed (LTS version recommended).
 - **npm**: Comes bundled with Node.js.
+- **MongoDB**: Local instance running (default port 27017).
+
+### ⚙️ Installation & Setup
+
+1. **Backend**:
+   ```bash
+   cd backend
+   npm install
+   npm run init      # Seeds the MongoDB database with initial chats
+   npm run mongo     # Starts the server in dev mode
+   ```
+
+2. **Frontend (React)**:
+   ```bash
+   cd react-practice
+   npm install
+   npm run dev
+   ```
 
 ---
 
@@ -70,6 +92,9 @@ To get this project up and running on your local machine, follow these steps:
   - **Asynchronous Database Operations**: Practiced clean `async/await` patterns for database connection and data mutation.
   - **Lazy Creation Logic**: Understanding that MongoDB automatically creates databases and collections (pluralized/lowercase) only when the first document is saved.
   - **Unified CRUD**: Translated complex SQL logic (INSERT, SELECT, UPDATE, DELETE) into intuitive Mongoose methods like `save()`, `find()`, `findByIdAndUpdate()`, and `findByIdAndDelete()`.
+- **Mongoose: Chat Model**: Developed a structured chat object model with fields for sender (`from`), receiver (`to`), message (`msg` with `maxLength`), and timestamps (`created_at`).
+- **Initial Data Seeding**: Mastered database initialization using `Model.insertMany()` through a dedicated `init.js` script for automated environment setup.
+- **Asynchronous Flow**: Leveraged `async/await` and `.then()/.catch()` patterns for clean, non-blocking database operations.
 - **Modular Data Architecture**: Developed a dynamic profile system that fetches structured data from organized JSON sources.
 - **Dynamic Routing & params**: Implemented complex path parameters (e.g., `/ig/:username`) to build an Instagram-style profile viewer.
 - **Asset Management**: Integrated external CDNs (like Unsplash) for high-quality, dynamic image rendering in backend templates.
@@ -116,6 +141,21 @@ A modern, schema-based user management system leveraging the flexibility of NoSQ
 - **Persistent Updates**: Ensured that schema "guardrails" remain active during updates by configuring `runValidators` explicitly.
 - **Connection Reliability**: Optimized connection strings using `127.0.0.1` for faster local resolution on Windows.
 - **Integrated CRUD**: Full implementation of data persistence, from initial connection to retrieving and updating records.
+
+### 💬 WhatsApp Simulation (Express + MongoDB)
+
+A real-time styled backend project integrating Express with NoSQL persistence:
+
+- **Express-Mongo Bridge**: Configured a dedicated Express server that communicates with a `whatsapp` database in MongoDB.
+- **Model-View-Controller (MVC) Prep**: Organized data structures into separate `/models` for cleaner architecture and scalability.
+- **Full CRUD Operations**:
+  - **Index (`GET /chats`)**: Displays all chats with formatted sender/receiver detail.
+  - **New (`GET /chats/new`)**: Interactive form for starting new message threads.
+  - **Create (`POST /chats`)**: Persistently saves new chat documents to MongoDB.
+  - **Edit (`GET /chats/:id/edit`)**: Pre-populated edit interface for modifying messages.
+  - **Update (`PUT /chats/:id`)**: Uses `method-override` and `findByIdAndUpdate` for seamless message editing.
+  - **Delete (`DELETE /chats/:id/delete`)**: Permanent removal of chat records from the database.
+- **Data Persistence**: Successfully implemented chat document validation and persistent storage with custom styling.
 
 ### ✍️ Quora Post Simulation (REST CRUD)
 

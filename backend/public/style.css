@@ -15,3 +15,108 @@ h1{
     margin: 10px;
     padding: 10px;
 }
+
+ 
+        .chat{
+            border: 2px solid black;
+            margin: 10px;
+            padding: 10px;
+            background-color: rgb(137, 255, 255);
+            border-radius: 10px;
+            display: inline-block;
+            width: 200px; 
+        }
+        .from{
+            font-weight: bold;
+        }
+        .message{
+            font-style: italic;
+            background-color: #deb887;
+            border-radius: 10px;
+            color: rgb(123, 128, 128);
+            display: inline-block;
+            padding: 5px;
+        }
+        .to{
+            font-weight: bold;
+            color: rgb(250, 96, 232);
+        }
+ 
+        .new-chat{
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .delete{
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .edit-chat{
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .update{
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+            width: 80px;
+        }
+
+         .edit{
+            background-color: rgb(255, 187, 0);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px; 
+         }
+
+         .chat-buttons{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+         }
+
+         .editform{
+            display: inline-block;
+         }
+
+         .deleteform{
+            display: inline-block;
+         }
+
+         .editbox{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+         }
+
+         .text{
+            width: 200px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid black;
+            padding: 10px;
+         }
