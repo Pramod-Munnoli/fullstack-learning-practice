@@ -11,7 +11,7 @@ Welcome to my fullstack development diary! This repository tracks my progress as
   - **/basics-practice/react-practice**: Frontend React application (State, Material UI).
   - **/basics-practice/frontend**: Vanilla JavaScript and CSS practice.
 - **/projects**: A dedicated workspace for building fullstack, production-ready applications. 🚀
-  - **/projects/my-app**: Initial fullstack application structure setup.
+  - **/projects/my-app** (Wanderlust): A fullstack AirBnB-like application using Express, EJS, and MongoDB for browsing and managing property listings.
 
 ---
 
