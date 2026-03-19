@@ -6,14 +6,12 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 
 ## 🏗️ Project Structure
 
-- **/backend**: Node.js & Express server (Previously `/server`).
-  - **/backend/models**: Mongoose schemas and data models for NoSQL persistence.
-  - **/backend/views**: EJS templates for dynamic frontend rendering.
-  - **/backend/public**: Static assets (CSS, images) for the backend views.
-  - **/backend/fruts**: Experimental modular exports practice using the `index.js` pattern.
-  - **/backend/init.js**: Database initialization script for seeding data.
-- **/react-practice**: Frontend React application (Previously `/client`).
-- **/frontend**: A fresh workspace for vanilla JavaScript and CSS practice.
+- **/basics-practice**: A folder for initial study and practice experiments.
+  - **/basics-practice/backend**: Node.js & Express server.
+  - **/basics-practice/react-practice**: Frontend React application (State, Material UI).
+  - **/basics-practice/frontend**: Vanilla JavaScript and CSS practice.
+- **/projects**: A dedicated workspace for building fullstack, production-ready applications. 🚀
+  - **/projects/my-app**: Initial fullstack application structure setup.
 
 ---
 
@@ -31,7 +29,7 @@ To get this project up and running on your local machine, follow these steps:
 
 1. **Backend**:
    ```bash
-   cd backend
+   cd basics-practice/backend
    npm install
    npm run init      # Seeds the MongoDB database with initial chats
    npm run mongo     # Starts the server in dev mode
@@ -39,7 +37,7 @@ To get this project up and running on your local machine, follow these steps:
 
 2. **Frontend (React)**:
    ```bash
-   cd react-practice
+   cd basics-practice/react-practice
    npm install
    npm run dev
    ```
