@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const Chat = require("./models/chat.js");
+const ExpressError = require("./utils/ExpressError");
+const wrapAsync = require("./utils/wrapAsync");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -23,21 +26,20 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/whatsapp");
 }
 
-
 app.get("/", (req, res) => {
   res.send("root route");
 });
 
-app.get("/chats", async (req, res) => {
+app.get("/chats", wrapAsync(async (req, res, next) => {
   let chats = await Chat.find(); 
   res.render("whatspp_routs/index.ejs", { chats });
-});
+}));
 
 app.get("/chats/new", (req , res)=>{
   res.render("whatspp_routs/new_chat.ejs");
 })
 
-app.post("/chats",(req,res)=>{
+app.post("/chats", wrapAsync(async (req, res, next) => {
   let {from , to , msg}= req.body;
   let newChat = new Chat({
     from: from,
@@ -45,61 +47,71 @@ app.post("/chats",(req,res)=>{
     msg: msg,
     created_at: new Date(),
   })
-  newChat.save()
-  .then((res)=>{
-    console.log(res);
-  })
-  .catch((err)=>{
-    console.log(err);
-  })
+  await newChat.save();
+  console.log(" ✅ new chat saved");
   res.redirect("/chats");
-})
+}))
 
-app.delete("/chats/:id/delete",(req,res)=>{
+app.delete("/chats/:id/delete", wrapAsync(async (req, res, next) => {
   let {id} = req.params;
-  Chat.findByIdAndDelete(id)
-  .then((res)=>{
-    console.log(" ✅ delete successfull",res);
-  })
-  .catch((err)=>{
-    console.log(" ❌ delete failed",err);
-  })
+  let deleteListing = await Chat.findByIdAndDelete(id);
+  console.log(" ✅ delete successfull", deleteListing);
   res.redirect("/chats");
-})
+}))
 
-app.get("/chats/:id/edit", async (req, res) => {
-  let { id } = req.params;
-  let chat = await Chat.findById(id);
-  if (!chat) {
-    console.log(" ❌ edit failed: Chat not found");
-    return res.redirect("/chats");
-  }
-  res.render("whatspp_routs/edit.ejs", { chat });
-});
+app.get("/chats/:id/edit", wrapAsync(async (req, res, next) => {
+    let { id } = req.params;
+    let chat = await Chat.findById(id);
+    if (!chat) {
+      return next(new ExpressError(500, "Chat not found"));
+    }
+    res.render("whatspp_routs/edit.ejs", { chat });
+}));
 
-app.put("/chats/:id", async (req, res) => {
+app.put("/chats/:id", wrapAsync(async (req, res, next) => {
   let { id } = req.params;
   let { msg: newMsg } = req.body;
   
-  await Chat.findByIdAndUpdate(
+  let updatedChat = await Chat.findByIdAndUpdate(
     id,
     { msg: newMsg, created_at: new Date() },
     { runValidators: true, returnDocument: "after" }
-  )
-  .then((updatedChat) => {
-    console.log(" ✅ edit successfull", updatedChat);
-  })
-  .catch((err) => {
-    console.log(" ❌ edit failed", err);
-  });
+  );
   
+  console.log(" ✅ edit successfull", updatedChat);
   res.redirect("/chats");
+}));
+
+
+// Catch-all for undefined routes
+app.all(/.*/, (req, res, next) => {
+    next(new ExpressError(404, "Page Not Found!"));
 });
 
+const handleValidationErr = (err) =>{
+  console.log("Validation Errorr was occured");
+  err.message = "Failed to save: Please make sure your message is under 50 characters.";
+  err.status = 400;
+  return err;
+}
 
-app.listen("8080", (req, res) => {
+app.use((err,req,res,next)=>{
+  if(err.name==="ValidationError"){
+    err = handleValidationErr(err);
+  }
+  next(err);
+})
+
+// Final Error Handler Middleware
+app.use((err, req, res, next) => {
+    let { status = 500, message = "Something went wrong!" } = err;
+    res.status(status).render("error", { message });
+});
+
+app.listen("8080", () => {
   console.log("server is running on port http://localhost:8080");
 });
+
 
 // const userSchema = new mongoose.Schema({
 //   name: String,

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose"); 
 const Listing = require("./models/listing");
+const ExpressError = require("./utils/ExpressError");
+const wrapAsync = require("./utils/wrapAsync");
  
 const path  = require("path");
 const methodOverride = require("method-override");
@@ -26,10 +28,10 @@ async function main() {
 }
 
 // Index Route
-app.get("/listings", async (req, res) => {
+app.get("/listings",wrapAsync( async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index", { allListings });
-});
+}));
 
 // New Route
 app.get("/listings/new", (req, res) => {
@@ -37,43 +39,79 @@ app.get("/listings/new", (req, res) => {
 });
 
 // Show Route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/show", { listing });
-});
+}));
 
 // Create Route
-app.post("/listings", async (req, res) => {
+app.post("/listings",wrapAsync(async (req, res) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
-});
+}));
 
 // Edit Route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit",wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit", { listing });
-});
+}));
 
 // Update Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
-});
+}));
 
-// Delete rout 
-app.delete("/listings/:id",async (req,res)=>{
-  let {id} = req.params;
-  let deleteListing = await Listing.findByIdAndDelete(id);
+// Middleware to protect the remove route
+// We use .all to cover any method on this specific path
+const checkToken = (req, res, next) => {
+  let { token } = req.query; // Check for ?token=... in the URL
+  if (token === "giveaccess") {
+    return next(); // Correctly return next to stop the current function
+  }
+  throw new ExpressError(401, "You are not authorized to delete this listing");
+};
+
+// Delete route - Now protected because the path matches!
+app.delete("/listings/:id/remove", checkToken,wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
-})
+}));
  
-app.get("/", async (req, res) => {
+app.get("/",wrapAsync(async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index", { allListings });
+}));
+
+app.all(/.*/, (req, res, next) => {
+    next(new ExpressError(404, "Page Not Found!"));
+});
+
+const handleValidationErr = (err) =>{
+  console.log("Validation Error occurred in Listings App");
+  err.message = "Failed to save listing: Please make sure all required fields are filled correctly.";
+  err.status = 400;
+  return err;
+}
+
+app.use((err,req,res,next)=>{
+  if(err.name==="ValidationError"){
+    err = handleValidationErr(err);
+  }
+  next(err);
+})
+
+// 2. Custom error handling
+app.use((err, req, res, next) => {
+  // Pull 'status' from err
+  let { status = 500, message = "General Error" } = err; 
+  // Use the 'status' variable we just created!
+  res.status(status).render("error", { message });
 });
 
 app.listen(8080, () => {

@@ -115,10 +115,14 @@ To get this project up and running on your local machine, follow these steps:
     - Learned to use `super()` to call the parent constructor and avoid "unexpected keyword" syntax errors.
   - **Execution vs Reference**: Understanding the difference between `obj.talk` (the function itself) and `obj.talk()` (executing the function).
   - **Debugging**: Solving common issues like case-sensitivity (`Std` vs `std`) and absolute paths in `res.sendFile`.
-- **Advanced Templating & Layouts**:
-  - Integrated **ejs-mate** as the engine to implement a professional boilerplate/layout system, ensuring consistent UI across all pages.
-- **Enhanced RESTful Methods**:
-  - Utilized **method-override** to support `PUT` and `DELETE` requests in the Wanderlust project, enabling full REST compliance for resource updates and removals.
+- **Professional Error Handling**:
+  - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
+  - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
+  - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
+  - Configured specialized handlers for **Mongoose Validation Errors** to provide user-friendly feedback on form submission failures.
+- **Middleware & Security Foundations**:
+  - Mastered the request-response cycle by implementing custom middleware like `checkToken` for basic route protection and authorization.
+  - Implemented "Not Found" (404) catch-all routing using `app.all("*")`.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -214,8 +218,10 @@ A feature-complete property listing platform demonstrating advanced backend arch
   - **Show**: Detailed view of specific listings.
   - **Edit/Update**: Robust data modification using `PUT` and `method-override`.
   - **Delete**: Secure listing removal using `DELETE` routes.
-- **Modern Layouts**: Implemented a `boilerplate.ejs` layout using **ejs-mate** for high code reusability (Header, Body, Footer structure).
-- **Listing Model**: Custom Mongoose schema featuring descriptive image handling with default fallback URLs and integrated validation.
+- **Security & Error Resilience**:
+  - **Professional Error Handling**: Powered by `wrapAsync` and custom `ExpressError` for production-grade stability.
+  - **Validation Logic**: Integrated Mongoose schema validation with human-readable error rendering.
+  - **Authorized Deletion**: Secured sensitive delete routes with middleware-driven token verification (e.g., `/listings/:id/remove?token=...`).
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
 ---
