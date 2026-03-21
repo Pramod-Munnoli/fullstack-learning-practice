@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust - Explore Unique Stays</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="/style.css"> 
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .nav-link-hover {
+            position: relative;
+        }
+        .nav-link-hover::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff385c;
+            transition: width 0.3s ease;
+        }
+        .nav-link-hover:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="glass-nav sticky top-0 z-50 w-full py-4 px-4 md:px-12 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/listings" class="flex items-center gap-2 group">
+            <div class="bg-[#ff385c] p-2 rounded-xl text-white transform group-hover:rotate-12 transition-transform duration-300">
+                <i class="fa-solid fa-compass text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold tracking-tight text-[#ff385c]">Wanderlust</span>
+        </a>
+
+        <!-- Search Bar (Desktop) -->
+        <div class="hidden md:flex items-center bg-white border border-gray-200 rounded-full py-2 px-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span class="px-3 border-r border-gray-200 text-sm font-medium">Anywhere</span>
+            <span class="px-3 border-r border-gray-200 text-sm font-medium">Any week</span>
+            <span class="px-3 text-sm text-gray-500 font-normal">Add guests</span>
+            <div class="bg-[#ff385c] p-2 rounded-full text-white ml-2">
+                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Right Side Nav -->
+        <div class="flex items-center gap-4">
+            <a href="/listings" class="hidden sm:block text-sm font-semibold hover:bg-gray-100 py-2 px-4 rounded-full transition-colors">Explore</a>
+            <a href="/listings/new" class="hidden sm:block text-sm font-semibold hover:bg-gray-100 py-2 px-4 rounded-full transition-colors">Host your home</a>
+            
+            <!-- User Menu -->
+            <div class="flex items-center gap-3 border border-gray-200 rounded-full py-1.5 px-3 hover:shadow-md transition-all cursor-pointer bg-white">
+                <i class="fa-solid fa-bars text-gray-600"></i>
+                <div class="bg-gray-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-user text-xs"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 px-4 pb-12">
+        <%- body %>
+    </main>
+
+    <!-- Footer Space -->
+    <footer class="mt-auto border-t border-gray-200 bg-white py-8 px-4 md:px-12 text-center text-gray-500 text-sm">
+        <p>&copy; 2024 Wanderlust. All rights reserved.</p>
+    </footer>
+</body>
+</html>

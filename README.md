@@ -11,7 +11,7 @@ Welcome to my fullstack development diary! This repository tracks my progress as
   - **/basics-practice/react-practice**: Frontend React application (State, Material UI).
   - **/basics-practice/frontend**: Vanilla JavaScript and CSS practice.
 - **/projects**: A dedicated workspace for building fullstack, production-ready applications. 🚀
-  - **/projects/my-app** (Wanderlust): A fullstack AirBnB-like application using Express, EJS, and MongoDB for browsing and managing property listings.
+  - **/projects/my-app** (Wanderlust): A fullstack AirBnB-like application using Express, EJS, and MongoDB for browsing and managing property listings. Featuring boilerplate layouts with `ejs-mate` and full CRUD functionality.
 
 ---
 
@@ -115,6 +115,10 @@ To get this project up and running on your local machine, follow these steps:
     - Learned to use `super()` to call the parent constructor and avoid "unexpected keyword" syntax errors.
   - **Execution vs Reference**: Understanding the difference between `obj.talk` (the function itself) and `obj.talk()` (executing the function).
   - **Debugging**: Solving common issues like case-sensitivity (`Std` vs `std`) and absolute paths in `res.sendFile`.
+- **Advanced Templating & Layouts**:
+  - Integrated **ejs-mate** as the engine to implement a professional boilerplate/layout system, ensuring consistent UI across all pages.
+- **Enhanced RESTful Methods**:
+  - Utilized **method-override** to support `PUT` and `DELETE` requests in the Wanderlust project, enabling full REST compliance for resource updates and removals.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -199,6 +203,20 @@ A dynamic backend project demonstrating real-world data rendering:
 - **Data Integration**: Loads user statistics and post data from structured JSON objects.
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
+
+### 🏨 Wanderlust (AirBnB Clone - Phase 1)
+
+A feature-complete property listing platform demonstrating advanced backend architecture:
+
+- **Full RESTful CRUD**:
+  - **Index**: View all listings with an elegant tile-based UI.
+  - **New/Create**: Seamless flow to add new properties.
+  - **Show**: Detailed view of specific listings.
+  - **Edit/Update**: Robust data modification using `PUT` and `method-override`.
+  - **Delete**: Secure listing removal using `DELETE` routes.
+- **Modern Layouts**: Implemented a `boilerplate.ejs` layout using **ejs-mate** for high code reusability (Header, Body, Footer structure).
+- **Listing Model**: Custom Mongoose schema featuring descriptive image handling with default fallback URLs and integrated validation.
+- **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
 ---
 

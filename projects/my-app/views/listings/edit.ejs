@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Edit Listing </h1>
-</body>
-</html>
+<% layout("/layouts/boilerplate") %>
+<body class="container">
+    <h1>Edit Listing</h1>
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+        <label for="title">Title</label>
+        <input required name="listing[title]" id="title" value="<%= listing.title %>">
+        
+        <label for="description">Description</label>
+        <textarea required name="listing[description]" id="description"><%= listing.description %></textarea>
+        
+        <label for="image">Image URL</label>
+        <input required name="listing[image][url]" id="image" value="<%= listing.image.url %>">
+        
+        <div style="display: flex; gap: 1rem;">
+            <div style="flex: 1;">
+                <label for="price">Price</label>
+                <input required name="listing[price]" id="price" value="<%= listing.price %>">
+            </div>
+            <div style="flex: 1;">
+                <label for="country">Country</label>
+                <input required name="listing[country]" id="country" value="<%= listing.country %>">
+            </div>
+        </div>
+
+        <label for="location">Location</label>
+        <input required name="listing[location]" id="location" value="<%= listing.location %>">
+        
+        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Update Listing</button>
+    </form>
+</body>  

@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     
-</head>
-<body>
-    <h1>Listing Details</h1>
-    <ul>
-        <li> Title: <%= list.title %> </li>
-        <li> Description: <%= list.description %> </li>
-        <li> &#8377; <%= list.price.toLocaleString("en-IN") %> </li>
-        <li> Location: <%= list.location %> </li>
-        <li>Country: <%= list.country %> </li> 
-    </ul>
-    
+<% layout("/layouts/boilerplate") %>
+<body class="container">
+    <div class="show-container">
+        <h1><%= listing.title %></h1>
+        <img class="show-img" src="<%= listing.image.url %>" alt="<%= listing.title %>">
+        <div class="show-info">
+            <p><strong>Description:</strong> <%= listing.description %></p>
+            <p class="show-price">&#8377; <% if(listing.price) { %><%= listing.price.toLocaleString("en-IN") %><% } else { %> 0 <% } %> / night</p>
+            <p><strong>Location:</strong> <%= listing.location %></p>
+            <p><strong>Country:</strong> <%= listing.country %></p>
+        </div>
+
+        <div class="action-btns">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary">Edit</a>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" style="margin:0; padding:0; box-shadow:none;">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+            <a href="/listings" class="btn btn-secondary">Back to all</a>
+        </div>
+    </div>
 </body>
-</html>
