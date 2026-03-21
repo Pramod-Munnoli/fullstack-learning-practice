@@ -1,30 +1,87 @@
 <% layout("/layouts/boilerplate") %>
-<body class="container">
-    <h1>Create New Listing</h1>
-    <form action="/listings" method="post">
-        <label for="title">Title</label>
-        <input type="text"   name="listing[title]" id="title" placeholder="Enter Title">
-        
-        <label for="description">Description</label>
-        <textarea required name="listing[description]" id="description" placeholder="Enter description"></textarea>
-        
-        <label for="image">Image URL</label>
-        <input type="text"   name="listing[image][url]" id="image" placeholder="Enter image url">
-        
-        <div style="display: flex; gap: 1rem;">
-            <div style="flex: 1;">
-                <label for="price">Price</label>
-                <input type="number" required name="listing[price]" id="price" placeholder="Enter price">
-            </div>
-            <div style="flex: 1;">
-                <label for="country">Country</label>
-                <input type="text" required name="listing[country]" id="country" placeholder="Enter country">
-            </div>
-        </div>
 
-        <label for="location">Location</label>
-    <input type="text" required name="listing[location]" id="location" placeholder="Enter location">
-        
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Add Listing</button>
-    </form>
-</body> 
+<div class="max-w-2xl mx-auto py-10">
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-circle-plus text-[#ff385c]"></i>
+            Create New Listing
+        </h1>
+
+        <form action="/listings" method="post" novalidate class="needs-validation space-y-6">
+            
+            <!-- Title Field -->
+            <div class="space-y-1">
+                <label for="title" class="block text-sm font-semibold text-gray-700">Title</label>
+                <div class="relative">
+                    <input type="text" name="listing[title]" id="title" required
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"
+                        placeholder="e.g. Cozy Beachfront Villa">
+                    <!-- Icons -->
+                    <i class="fa-solid fa-circle-check absolute right-4 top-1/2 -translate-y-1/2 text-green-500 opacity-0 peer-[.is-valid]:opacity-100 transition-opacity"></i>
+                    <i class="fa-solid fa-circle-exclamation absolute right-4 top-1/2 -translate-y-1/2 text-red-500 opacity-0 peer-[.is-invalid]:opacity-100 transition-opacity"></i>
+                </div>
+                <p class="text-xs text-green-600 font-medium hidden peer-[.is-valid]:block">Looks good!</p>
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Please provide a catchy title.</p>
+            </div>
+
+            <!-- Description Field -->
+            <div class="space-y-1">
+                <label for="description" class="block text-sm font-semibold text-gray-700">Description</label>
+                <div class="relative">
+                    <textarea name="listing[description]" id="description" required rows="4"
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"
+                        placeholder="Tell guests about your place..."></textarea>
+                </div>
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Description is required.</p>
+            </div>
+
+            <!-- Image URL Field -->
+            <div class="space-y-1">
+                <label for="image" class="block text-sm font-semibold text-gray-700">Image URL</label>
+                <input type="text" name="listing[image][url]" id="image"  
+                    class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                      valid:[&.is-valid]:border-green-500"
+                    placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <!-- Price and Country Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label for="price" class="block text-sm font-semibold text-gray-700">Price (per night)</label>
+                    <div class="relative">
+                        <input type="text" name="listing[price]" id="price" required min="0"
+                            class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                            invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"
+                            placeholder="1200">
+                    </div>
+                    <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Price must be a positive number.</p>
+                </div>
+                <div class="space-y-1">
+                    <label for="country" class="block text-sm font-semibold text-gray-700">Country</label>
+                    <input type="text" name="listing[country]" id="country" required
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"
+                        placeholder="e.g. India">
+                    <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Country is required.</p>
+                </div>
+            </div>
+
+            <!-- Location Field -->
+            <div class="space-y-1">
+                <label for="location" class="block text-sm font-semibold text-gray-700">Location</label>
+                <input type="text" name="listing[location]" id="location" required
+                    class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                    invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"
+                    placeholder="e.g. Goa">
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Please provide a location.</p>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-[#ff385c] hover:bg-[#e31c5f] text-white font-bold py-4 px-6 rounded-xl transition-all active:scale-95 shadow-lg shadow-pink-200">
+                Create Listing
+            </button>
+        </form>
+    </div>
+</div> 

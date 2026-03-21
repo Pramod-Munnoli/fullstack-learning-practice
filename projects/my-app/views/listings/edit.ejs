@@ -1,30 +1,79 @@
 <% layout("/layouts/boilerplate") %>
-<body class="container">
-    <h1>Edit Listing</h1>
-    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
-        <label for="title">Title</label>
-        <input required name="listing[title]" id="title" value="<%= listing.title %>">
-        
-        <label for="description">Description</label>
-        <textarea required name="listing[description]" id="description"><%= listing.description %></textarea>
-        
-        <label for="image">Image URL</label>
-        <input required name="listing[image][url]" id="image" value="<%= listing.image.url %>">
-        
-        <div style="display: flex; gap: 1rem;">
-            <div style="flex: 1;">
-                <label for="price">Price</label>
-                <input required name="listing[price]" id="price" value="<%= listing.price %>">
-            </div>
-            <div style="flex: 1;">
-                <label for="country">Country</label>
-                <input required name="listing[country]" id="country" value="<%= listing.country %>">
-            </div>
-        </div>
 
-        <label for="location">Location</label>
-        <input required name="listing[location]" id="location" value="<%= listing.location %>">
-        
-        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Update Listing</button>
-    </form>
-</body>  
+<div class="max-w-2xl mx-auto py-10">
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-[#ff385c]"></i>
+            Edit Listing
+        </h1>
+
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="post" novalidate class="needs-validation space-y-6">
+            
+            <!-- Title Field -->
+            <div class="space-y-1">
+                <label for="title" class="block text-sm font-semibold text-gray-700">Title</label>
+                <div class="relative">
+                    <input type="text" name="listing[title]" id="title" required value="<%= listing.title %>"
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500">
+                    <i class="fa-solid fa-circle-check absolute right-4 top-1/2 -translate-y-1/2 text-green-500 opacity-0 peer-[.is-valid]:opacity-100 transition-opacity"></i>
+                    <i class="fa-solid fa-circle-exclamation absolute right-4 top-1/2 -translate-y-1/2 text-red-500 opacity-0 peer-[.is-invalid]:opacity-100 transition-opacity"></i>
+                </div>
+                <p class="text-xs text-green-600 font-medium hidden peer-[.is-valid]:block">Looks good!</p>
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Please provide a valid title.</p>
+            </div>
+
+            <!-- Description Field -->
+            <div class="space-y-1">
+                <label for="description" class="block text-sm font-semibold text-gray-700">Description</label>
+                <div class="relative">
+                    <textarea name="listing[description]" id="description" required rows="4"
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500"><%= listing.description %></textarea>
+                </div>
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Description is required.</p>
+            </div>
+
+            <!-- Image URL Field -->
+            <div class="space-y-1">
+                <label for="image" class="block text-sm font-semibold text-gray-700">Image URL</label>
+                <input type="text" name="listing[image][url]" id="image" required value="<%= listing.image.url %>"
+                    class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]  
+                    invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500">
+                   <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Please enter a valid Image Url.</p>
+            </div>
+
+            <!-- Price and Country Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label for="price" class="block text-sm font-semibold text-gray-700">Price</label>
+                    <input type="number" name="listing[price]" id="price" required min="0" value="<%= listing.price %>"
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500">
+                    <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Please enter a valid price.</p>
+                </div>
+                <div class="space-y-1">
+                    <label for="country" class="block text-sm font-semibold text-gray-700">Country</label>
+                    <input type="text" name="listing[country]" id="country" required value="<%= listing.country %>"
+                        class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                        invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500">
+                    <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Country name is required.</p>
+                </div>
+            </div>
+
+            <!-- Location Field -->
+            <div class="space-y-1">
+                <label for="location" class="block text-sm font-semibold text-gray-700">Location</label>
+                <input type="text" name="listing[location]" id="location" required value="<%= listing.location %>"
+                    class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
+                    invalid:[&.is-invalid]:border-red-500 valid:[&.is-valid]:border-green-500">
+                <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Location is required.</p>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all active:scale-95 shadow-lg shadow-blue-100">
+                Update Listing
+            </button>
+        </form>
+    </div>
+</div>  

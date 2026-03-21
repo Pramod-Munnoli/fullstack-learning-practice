@@ -12,7 +12,7 @@
 
         <div class="action-btns">
             <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary">Edit</a>
-            <form action="/listings/<%= listing._id %>/remove?_method=DELETE" method="post" style="margin:0; padding:0; box-shadow:none;">
+            <form action="/listings/<%= listing._id %>/remove?_method=DELETE&token=giveaccess" method="post" style="margin:0; padding:0; box-shadow:none;">
                 <button class="btn btn-danger">Delete</button>
             </form>
             <a href="/listings" class="btn btn-secondary">Back to all</a>

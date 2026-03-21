@@ -119,10 +119,10 @@ To get this project up and running on your local machine, follow these steps:
   - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
   - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
   - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
-  - Configured specialized handlers for **Mongoose Validation Errors** to provide user-friendly feedback on form submission failures.
-- **Middleware & Security Foundations**:
-  - Mastered the request-response cycle by implementing custom middleware like `checkToken` for basic route protection and authorization.
-  - Implemented "Not Found" (404) catch-all routing using `app.all("*")`.
+- **Professional Data Validation**:
+  - **Server-Side**: Integrated **Joi** for robust schema validation, ensuring data integrity before reaching MongoDB.
+  - **Client-Side**: Implemented a hybrid validation system using custom JavaScript and Bootstrap-inspired logic (`needs-validation`).
+  - **Dynamic UI Feedback**: Leveraged **Tailwind CSS Peer classes** to provide real-time visual feedback (icons, border colors, and messages) based on input validity.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -220,7 +220,7 @@ A feature-complete property listing platform demonstrating advanced backend arch
   - **Delete**: Secure listing removal using `DELETE` routes.
 - **Security & Error Resilience**:
   - **Professional Error Handling**: Powered by `wrapAsync` and custom `ExpressError` for production-grade stability.
-  - **Validation Logic**: Integrated Mongoose schema validation with human-readable error rendering.
+  - **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
   - **Authorized Deletion**: Secured sensitive delete routes with middleware-driven token verification (e.g., `/listings/:id/remove?token=...`).
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
