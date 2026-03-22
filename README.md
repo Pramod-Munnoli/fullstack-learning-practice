@@ -9,6 +9,7 @@ Welcome to my fullstack development diary! This repository tracks my progress as
 - **/basics-practice**: A folder for initial study and practice experiments.
   - **/basics-practice/backend**: Node.js & Express server.
   - **/basics-practice/react-practice**: Frontend React application (State, Material UI).
+  - **/practice/mongoose-practice**: Deep dive into Mongoose relationships and data modeling.
   - **/basics-practice/frontend**: Vanilla JavaScript and CSS practice.
 - **/projects**: A dedicated workspace for building fullstack, production-ready applications. 🚀
   - **/projects/my-app** (Wanderlust): A fullstack AirBnB-like application using Express, EJS, and MongoDB for browsing and managing property listings. Featuring boilerplate layouts with `ejs-mate` and full CRUD functionality.
@@ -119,6 +120,10 @@ To get this project up and running on your local machine, follow these steps:
   - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
   - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
   - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
+- **Advanced Data Modeling (Mongoose Relationships)**:
+  - **One-to-Many (Embedding Refs)**: Implemented structured customer-order relationships using arrays of ObjectIDs.
+  - **Parent Referencing**: Mastered the "user-post" model where children point to parents for optimized data distribution.
+  - **Query Population (`.populate`)**: Leveraged `.populate()` to elegantly join collections and retrieve full document data from references.
 - **Professional Data Validation**:
   - **Server-Side**: Integrated **Joi** for robust schema validation, ensuring data integrity before reaching MongoDB.
   - **Client-Side**: Implemented a hybrid validation system using custom JavaScript and Bootstrap-inspired logic (`needs-validation`).
