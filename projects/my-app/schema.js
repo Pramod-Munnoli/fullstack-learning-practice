@@ -15,3 +15,11 @@ module.exports.listingSchema = Joi.object({
         )
     }).required()
 });
+
+module.exports.reviewSchema = Joi.object({
+    reviews: Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        comment: Joi.string().required(),
+    }).required(),
+});
+

@@ -1,21 +1,171 @@
 <% layout("/layouts/boilerplate") %>
-<body class="container">
-    <div class="show-container">
-        <h1><%= listing.title %></h1>
-        <img class="show-img" src="<%= listing.image.url %>" alt="<%= listing.title %>">
-        <div class="show-info">
-            <p><strong>Description:</strong> <%= listing.description %></p>
-            <p class="show-price">&#8377; <% if(listing.price) { %><%= listing.price.toLocaleString("en-IN") %><% } else { %> 0 <% } %> / night</p>
-            <p><strong>Location:</strong> <%= listing.location %></p>
-            <p><strong>Country:</strong> <%= listing.country %></p>
-        </div>
 
-        <div class="action-btns">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary">Edit</a>
-            <form action="/listings/<%= listing._id %>/remove?_method=DELETE&token=giveaccess" method="post" style="margin:0; padding:0; box-shadow:none;">
-                <button class="btn btn-danger">Delete</button>
-            </form>
-            <a href="/listings" class="btn btn-secondary">Back to all</a>
+    <div class="max-w-4xl mx-auto py-10">
+        <!-- Back Button -->
+        <a href="/listings"
+            class="inline-flex items-center gap-2 text-slate-500 hover:text-[#ff385c] mb-6 font-semibold transition-colors">
+            <i class="fa-solid fa-chevron-left text-xs"></i>
+            Back to all listings
+        </a>
+
+        <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+            <!-- Main Image -->
+            <div class="relative h-[400px] md:h-[500px]">
+                <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="w-full h-full object-cover">
+                <div class="absolute top-6 right-6">
+                    <button
+                        class="bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all text-[#ff385c]">
+                        <i class="fa-regular fa-heart text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 md:p-12">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+                    <div class="flex-1">
+                        <h1 class="text-4xl font-extrabold text-slate-900 mb-2">
+                            <%= listing.title %>
+                        </h1>
+                        <div class="flex items-center gap-4 text-slate-500 mb-6">
+                            <span class="flex items-center gap-1"><i
+                                    class="fa-solid fa-location-dot text-[#ff385c]"></i>
+                                <%= listing.location %>, <%= listing.country %>
+                            </span>
+                            <!-- Review  -->
+                            <span class="flex items-center gap-1 font-semibold text-slate-900"><i
+                                    class="fa-solid fa-star text-xs"></i> 4.9 · 12 reviews</span>
+                        </div>
+
+                        <div class="prose prose-slate max-w-none">
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">About this place</h3>
+                            <p class="text-slate-600 leading-relaxed text-lg">
+                                <%= listing.description %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Card (Desktop) -->
+                    <div class="w-full md:w-80 bg-slate-50 rounded-2xl p-6 border border-slate-200 sticky top-24">
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-3xl font-bold text-slate-900">&#8377; <%=
+                                    listing.price.toLocaleString("en-IN") %></span>
+                            <span class="text-slate-500">night</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 border border-slate-300 rounded-xl overflow-hidden">
+                                <div class="p-3 border-r border-b border-slate-300">
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500">Check-in</label>
+                                    <span class="text-sm">Add date</span>
+                                </div>
+                                <div class="p-3 border-b border-slate-300">
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500">Checkout</label>
+                                    <span class="text-sm">Add date</span>
+                                </div>
+                                <div class="p-3 col-span-2">
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500">Guests</label>
+                                    <span class="text-sm">1 guest</span>
+                                </div>
+                            </div>
+
+                            <button
+                                class="w-full bg-[#ff385c] hover:bg-[#e31c5f] text-white font-bold py-3 rounded-xl shadow-lg shadow-pink-100 transition-all">
+                                Reserve Now
+                            </button>
+
+                            <p class="text-center text-xs text-slate-500">You won't be charged yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Actions -->
+                <div class="mt-12 pt-8 border-t border-slate-100 flex items-center gap-4">
+                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </a>
+                    <form action="/listings/<%= listing._id %>/remove?_method=DELETE&token=giveaccess" method="post"
+                        class="m-0 p-0 shadow-none bg-transparent">
+                        <button class="btn btn-danger gap-2">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Review Section -->
+                <div class="mt-5 pt-12 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-3xl p-8 md:p-10 border border-slate-100">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-nib text-[#ff385c]"></i>
+                            Leave a Review
+                        </h2>
+                        <p class="text-slate-500 mb-8 text-sm">Share your experience with other travelers.</p>
+
+                        <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate
+                            class="needs-validation space-y-6">
+                            <!-- Rating Selection -->
+                            <div class="space-y-3">
+                                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wider"
+                                    for="rating">Your Rating</label>
+                                <div
+                                    class="flex items-center gap-2 bg-white w-fit p-3 rounded-2xl border border-slate-200 shadow-sm star-rating">
+                                    <div class="flex flex-row-reverse justify-end gap-1">
+                                        <% for(let i=5; i>=1; i--) { %>
+                                            <input type="radio" id="star<%= i %>" name="reviews[rating]" value="<%= i %>"
+                                                class="hidden peer" required>
+                                            <label for="star<%= i %>"
+                                                class="fa-solid fa-star text-2xl text-slate-200 cursor-pointer transition-colors"></label>
+                                            <% } %>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-400 ml-2">Select stars</span>
+                                </div>
+                            </div>
+
+                            <!-- Comment Field -->
+                            <div class="space-y-2">
+                                <label for="comment"
+                                    class="block text-sm font-bold text-slate-700 uppercase tracking-wider">Comment</label>
+                                <div class="relative">
+                                    <textarea name="reviews[comment]" id="comment" required rows="4" class="peer w-full px-5 py-4 rounded-2xl border border-slate-200 outline-none transition-all focus:ring-4 focus:ring-[#ff385c]/10 focus:border-[#ff385c] resize-none
+                            invalid:[&.is-invalid]:border-red-500"
+                                        placeholder="Write your thoughts about this place..."></textarea>
+                                </div>
+                                <p class="text-xs text-red-500 font-medium hidden peer-[.is-invalid]:block">Please share
+                                    some comments for your review.</p>
+                            </div>
+
+                            <button type="submit"
+                                class="bg-slate-900 hover:bg-black text-white font-bold py-4 px-8 rounded-2xl transition-all active:scale-95 shadow-lg flex items-center gap-2">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                                Post Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- show.ejs -->
+                <div class="mt-5 bg-slate-50 rounded-3xl p-8 md:p-10 border border-slate-100">
+                    <h1 class="text-xl font-bold mb-4">All Reviews</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <% if (listing.reviews && listing.reviews.length> 0) { %>
+                            <% for(let review of listing.reviews) { %>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                    <p class="font-bold text-slate-800">Rating: <%= review.rating %> Stars</p>
+                                    <p class="text-slate-600">
+                                        <%= review.comment %>
+                                    </p>
+                                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                        <button class="rounded-xl p-1 m-1 bg-slate-900 hover:bg-black text-white text-sm">Delete</button>
+                                    </form>
+                                </div>
+                                <% } %>
+                                <% } else { %>
+                                   <p class="text-slate-500 italic">No reviews yet. If you have visited this place,
+                                   please share your experience with us!</p>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</body>

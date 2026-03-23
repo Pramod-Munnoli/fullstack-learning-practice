@@ -1,141 +1,80 @@
-/* Base Styles */
+/* Base Styles & Variables */
 :root {
-    --primary: #ff385c; /* Airbnb style pinkish-red */
+    --primary: #ff385c;
     --primary-hover: #e31c5f;
     --bg-light: #f8fafc;
     --text-dark: #1e293b;
     --text-muted: #64748b;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    --border-radius: 12px;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.8);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Custom Utilities that Tailwind doesn't handle natively as easily */
+.glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Smooth transitions for all interactive elements */
+a, button, input, .card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar for a more premium feel */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+}
+
+/* Fix for body padding that was causing issues with Tailwind layouts */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: var(--text-dark);
-    line-height: 1.6;
     background-color: var(--bg-light);
-    padding: 30px;
-}
-
-/* Container */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Typography */
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
     color: var(--text-dark);
-    font-weight: 800;
+    margin: 0;
+    padding: 0; /* Removed the 30px padding that was breaking layouts */
 }
 
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-dark);
-}
-
-/* Grid for Listings (Index) */
-#listings-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.listing-card {
-    background: white;
-    border-radius: var(--border-radius);
+/* Line clamp utility if needed (Tailwind has it, but just in case) */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    border: 1px solid #e2e8f0;
 }
 
-.listing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.listing-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.listing-content {
-    padding: 1.5rem;
-}
-
-.listing-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-
-.listing-price {
-    font-weight: bold;
-    color: var(--primary);
-    font-size: 1.1rem;
-}
-
-/* Forms (New/Edit) */
-form {
-    background: white;
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form-field {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
-}
-
-/* Buttons */
+/* Old style compatibility - gradually migrate these to Tailwind in views */
 .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
     font-weight: 600;
-    text-align: center;
-    border-radius: 8px;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
     cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    border: none;
-    font-size: 1rem;
 }
 
 .btn-primary {
@@ -145,16 +84,19 @@ input:focus, textarea:focus {
 
 .btn-primary:hover {
     background-color: var(--primary-hover);
-    transform: scale(1.02);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
 }
 
 .btn-secondary {
-    background-color: #f1f5f9;
-    color: #475569;
+    background-color: white;
+    color: var(--text-dark);
+    border: 1px solid #e2e8f0;
 }
 
 .btn-secondary:hover {
-    background-color: #e2e8f0;
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
 }
 
 .btn-danger {
@@ -162,42 +104,17 @@ input:focus, textarea:focus {
     color: #ef4444;
 }
 
-/* Show Page Specifics */
-.show-container {
-    background: white;
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-    max-width: 800px;
-    margin: 0 auto;
+.btn-danger:hover {
+    background-color: #fecaca;
 }
 
-.show-img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+/* Star Rating System */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #fbbf24 !important;
 }
 
-.show-info p {
-    margin-bottom: 0.75rem;
-    color: var(--text-muted);
+.star-rating .peer:checked ~ label {
+    color: #fbbf24 !important;
 }
 
-.show-price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary);
-    margin: 1rem 0;
-}
-
-.action-btns {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-/* Navigation Link Color Override */
-a {
-    color: inherit;
-    text-decoration: none;
-}

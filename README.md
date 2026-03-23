@@ -120,14 +120,14 @@ To get this project up and running on your local machine, follow these steps:
   - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
   - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
   - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
+- **Scalable Architecture (Express Router)**:
+  - Refactored the monolithic `app.js` into modular, resource-based routers (`listings`, `reviews`) using `Express.Router()`.
+  - Implemented **Nested Routing** for reviews, enabling logical paths like `/listings/:id/reviews`.
+- **State Management & Cookies**:
+  - Integrated **cookie-parser** to handle client-side data persistence.
+  - Mastered **Signed Cookies** for increased security, preventing client-side tampering through secret keys.
 - **Advanced Data Modeling (Mongoose Relationships)**:
-  - **One-to-Many (Embedding Refs)**: Implemented structured customer-order relationships using arrays of ObjectIDs.
-  - **Parent Referencing**: Mastered the "user-post" model where children point to parents for optimized data distribution.
-  - **Query Population (`.populate`)**: Leveraged `.populate()` to elegantly join collections and retrieve full document data from references.
-- **Professional Data Validation**:
-  - **Server-Side**: Integrated **Joi** for robust schema validation, ensuring data integrity before reaching MongoDB.
-  - **Client-Side**: Implemented a hybrid validation system using custom JavaScript and Bootstrap-inspired logic (`needs-validation`).
-  - **Dynamic UI Feedback**: Leveraged **Tailwind CSS Peer classes** to provide real-time visual feedback (icons, border colors, and messages) based on input validity.
+  - **One-to-Many**: Implemented a robust "Listing-to-Review" relationship using ObjectIDs and `.populate()`.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -217,16 +217,12 @@ A dynamic backend project demonstrating real-world data rendering:
 
 A feature-complete property listing platform demonstrating advanced backend architecture:
 
-- **Full RESTful CRUD**:
-  - **Index**: View all listings with an elegant tile-based UI.
-  - **New/Create**: Seamless flow to add new properties.
-  - **Show**: Detailed view of specific listings.
-  - **Edit/Update**: Robust data modification using `PUT` and `method-override`.
-  - **Delete**: Secure listing removal using `DELETE` routes.
-- **Security & Error Resilience**:
-  - **Professional Error Handling**: Powered by `wrapAsync` and custom `ExpressError` for production-grade stability.
-  - **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
-  - **Authorized Deletion**: Secured sensitive delete routes with middleware-driven token verification (e.g., `/listings/:id/remove?token=...`).
+- **Architecture & Extensibility**:
+  - **Modular Routing**: Powered by `Express.Router` for a clean, professional MVC-like structure.
+  - **Review System**: Specialized nested routes and models for managing user feedback on listings.
+  - **Security & Error Resilience**: Powered by `wrapAsync`, custom `ExpressError`, and **Signed Cookies** for secure state management.
+- **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
+- **Authorized Deletion**: Secured sensitive delete routes with middleware-driven token verification (e.g., `/listings/:id/remove?token=...`).
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
 ---

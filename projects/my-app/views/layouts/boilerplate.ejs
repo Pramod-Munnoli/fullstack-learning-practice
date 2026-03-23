@@ -6,6 +6,18 @@
     <title>Wanderlust - Explore Unique Stays</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff385c',
+                        'primary-hover': '#e31c5f',
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -14,15 +26,15 @@
     <link rel="stylesheet" href="/style.css"> 
  
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col font-['Outfit']">
     <!-- Navbar -->
     <nav class="glass-nav sticky top-0 z-50 w-full py-4 px-4 md:px-12 flex items-center justify-between">
         <!-- Logo -->
         <a href="/listings" class="flex items-center gap-2 group">
-            <div class="bg-[#ff385c] p-2 rounded-xl text-white transform group-hover:rotate-12 transition-transform duration-300">
+            <div class="bg-primary p-2 rounded-xl text-white transform group-hover:rotate-12 transition-transform duration-300">
                 <i class="fa-solid fa-compass text-xl"></i>
             </div>
-            <span class="text-2xl font-bold tracking-tight text-[#ff385c]">Wanderlust</span>
+            <span class="text-2xl font-bold tracking-tight text-primary">Wanderlust</span>
         </a>
 
         <!-- Search Bar (Desktop) -->
@@ -30,7 +42,7 @@
             <span class="px-3 border-r border-gray-200 text-sm font-medium">Anywhere</span>
             <span class="px-3 border-r border-gray-200 text-sm font-medium">Any week</span>
             <span class="px-3 text-sm text-gray-500 font-normal">Add guests</span>
-            <div class="bg-[#ff385c] p-2 rounded-full text-white ml-2">
+            <div class="bg-primary p-2 rounded-full text-white ml-2">
                 <i class="fa-solid fa-magnifying-glass text-xs"></i>
             </div>
         </div>
@@ -38,7 +50,7 @@
         <!-- Right Side Nav -->
         <div class="flex items-center gap-4">
             <a href="/listings" class="hidden sm:block text-sm font-semibold hover:bg-gray-100 py-2 px-4 rounded-full transition-colors">Explore</a>
-            <a href="/listings/new" class="hidden sm:block text-sm font-semibold hover:bg-gray-100 py-2 px-4 rounded-full transition-colors">Host your home</a>
+            <a href="/listings/new" class="hidden sm:block text-sm font-semibold hover:bg-gray-100 py-2 px-4 rounded-full transition-colors font-['Outfit']">Host home</a>
             
             <!-- User Menu -->
             <div class="flex items-center gap-3 border border-gray-200 rounded-full py-1.5 px-3 hover:shadow-md transition-all cursor-pointer bg-white">
@@ -50,13 +62,23 @@
         </div>
     </nav>
 
-    <main class="container mx-auto mt-8 px-4 pb-12">
+    <main class="flex-grow">
         <%- body %>
     </main>
 
     <!-- Footer Space -->
-    <footer class="mt-auto border-t border-gray-200 bg-white py-8 px-4 md:px-12 text-center text-gray-500 text-sm">
-        <p>&copy; 2024 Wanderlust. All rights reserved.</p>
+    <footer class="mt-auto border-t border-gray-100 bg-white py-10 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-1 text-gray-500 text-sm">
+                <span class="font-bold text-gray-900">Wanderlust</span>
+                <span>&copy; 2024. Exploration redefined.</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fa-brands fa-facebook-f text-lg"></i></a>
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+            </div>
+        </div>
     </footer>
     <script src="/js/script.js"></script>
 </body>
