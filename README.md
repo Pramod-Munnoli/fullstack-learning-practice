@@ -123,9 +123,15 @@ To get this project up and running on your local machine, follow these steps:
 - **Scalable Architecture (Express Router)**:
   - Refactored the monolithic `app.js` into modular, resource-based routers (`listings`, `reviews`) using `Express.Router()`.
   - Implemented **Nested Routing** for reviews, enabling logical paths like `/listings/:id/reviews`.
+- **Session Management**:
+  - Configured **express-session** with secure options: `httpOnly` cookies, expiration (`maxAge`), and a secret key.
+  - Leveraged `res.locals` to expose session data globally across all EJS templates.
+- **Flash Messaging (UX Feedback)**:
+  - Integrated **connect-flash** with `express-session` to display one-time success and error notifications.
+  - Built a reusable `flash.ejs` EJS partial (Tailwind-styled, dismissible alerts) included in the global boilerplate.
 - **State Management & Cookies**:
-  - Integrated **cookie-parser** to handle client-side data persistence.
-  - Mastered **Signed Cookies** for increased security, preventing client-side tampering through secret keys.
+  - Integrated **cookie-parser** for client-side data persistence.
+  - Mastered **Signed Cookies** for security, preventing client-side tampering via secret keys.
 - **Advanced Data Modeling (Mongoose Relationships)**:
   - **One-to-Many**: Implemented a robust "Listing-to-Review" relationship using ObjectIDs and `.populate()`.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
@@ -213,16 +219,19 @@ A dynamic backend project demonstrating real-world data rendering:
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
-### 🏨 Wanderlust (AirBnB Clone - Phase 1)
+### 🏨 Wanderlust (AirBnB Clone - Phase 2)
 
-A feature-complete property listing platform demonstrating advanced backend architecture:
+A production-grade property listing platform with polished UX and robust session management:
 
 - **Architecture & Extensibility**:
   - **Modular Routing**: Powered by `Express.Router` for a clean, professional MVC-like structure.
   - **Review System**: Specialized nested routes and models for managing user feedback on listings.
   - **Security & Error Resilience**: Powered by `wrapAsync`, custom `ExpressError`, and **Signed Cookies** for secure state management.
+- **User Experience (Session & Flash)**:
+  - **Session-Backed State**: `express-session` ensures persistent, secure user sessions across requests.
+  - **Flash Notifications**: Dismissible success/error toasts via `connect-flash`, seamlessly integrated into the global EJS layout.
+  - **Reusable UI Partials**: Extracted `navbar.ejs`, `footer.ejs`, and `flash.ejs` into a dedicated `/views/includes/` folder for DRY layout management.
 - **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
-- **Authorized Deletion**: Secured sensitive delete routes with middleware-driven token verification (e.g., `/listings/:id/remove?token=...`).
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
 ---

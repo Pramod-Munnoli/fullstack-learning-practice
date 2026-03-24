@@ -2,16 +2,16 @@
   "name": "fullstack-learning-practice",
   "private": true,
   "version": "1.0.0",
-  "description": "Fullstack learning practice repository with centralized node_modules.",
+  "description":"Fullstack learning practice repository with centralized node_modules.",
   "workspaces": [
-    "basics-practice/react-practice",
-    "basics-practice/backend",
+    "practice/*",
     "projects/*"
   ],
   "scripts": {
-    "dev:backend": "npm run dev --workspace=basics-practice/backend",
-    "dev:react": "npm run dev --workspace=basics-practice/react-practice",
-    "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:react\"",
+    "dev:mongoose": "npm run dev --workspace=mongoose-practice",
+    "dev:react": "npm run dev --workspace=state-react-app",
+    "dev:app": "npm run dev --workspace=my-app",
+    "dev": "npx concurrently \"npm run dev:mongoose\" \"npm run dev:react\" \"npm run dev:app\"",
     "install-all": "npm install"
   },
   "devDependencies": {

@@ -7,6 +7,8 @@ const ExpressError = require("./utils/ExpressError");
 const wrapAsync = require("./utils/wrapAsync"); 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/reviews.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -21,6 +23,19 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser("secretcode"));
 
+const sessionOptions = {
+    secret: "mysupersecretstring",
+     resave:false , 
+     saveUninitialized:true,
+     cookie: {
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+     }
+    }
+app.use(session(sessionOptions));
+app.use(flash()); 
+
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 main()
   .then(() => {
@@ -34,6 +49,13 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
+// Middleware to set res.locals.success for flash messages
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error"); 
+  next();
+});
+
 app.get(
   "/",
   wrapAsync(async (req, res) => {
@@ -41,6 +63,7 @@ app.get(
     res.render("listings/index", { allListings });
   }),
 );
+
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
@@ -84,6 +107,6 @@ app.use((err, req, res, next) => {
   res.status(status).render("error", { message });
 });
 
-app.listen(8080, () => {
-  console.log("server is workig on http://localhost:8080/");
+app.listen(8000, () => {
+  console.log("server is workig on http://localhost:8000/");
 });
