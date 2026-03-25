@@ -2,7 +2,7 @@
   "name": "fullstack-learning-practice",
   "private": true,
   "version": "1.0.0",
-  "description":"Fullstack learning practice repository with centralized node_modules.",
+  "description": "Fullstack learning practice repository with centralized node_modules.",
   "workspaces": [
     "practice/*",
     "projects/*"
@@ -16,5 +16,10 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^9.0.1"
   }
 }

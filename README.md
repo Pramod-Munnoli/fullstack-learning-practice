@@ -120,8 +120,13 @@ To get this project up and running on your local machine, follow these steps:
   - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
   - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
   - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
+- **Full Authentication (Passport.js)**:
+  - Integrated **Passport** and **LocalStrategy** for secure user registration and login flows.
+  - Leveraged **passport-local-mongoose** for automated username/password hashing and salting via Mongoose plugins.
+  - Implemented **Automatic Login** after signup and **Logout** functionality with specialized session clearing.
+  - Developed **Conditional UI Rendering**: Utilized `res.locals.currUser` to dynamically show/hide navbar links based on the user's authentication state.
 - **Scalable Architecture (Express Router)**:
-  - Refactored the monolithic `app.js` into modular, resource-based routers (`listings`, `reviews`) using `Express.Router()`.
+  - Refactored the monolithic `app.js` into modular, resource-based routers (`listings`, `reviews`, `users`) using `Express.Router()`.
   - Implemented **Nested Routing** for reviews, enabling logical paths like `/listings/:id/reviews`.
 - **Session Management**:
   - Configured **express-session** with secure options: `httpOnly` cookies, expiration (`maxAge`), and a secret key.
@@ -219,10 +224,14 @@ A dynamic backend project demonstrating real-world data rendering:
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
-### 🏨 Wanderlust (AirBnB Clone - Phase 2)
+### 🏨 Wanderlust (AirBnB Clone - Phase 3)
 
-A production-grade property listing platform with polished UX and robust session management:
+A professional property listing platform with full user lifecycle management and secure authentication:
 
+- **Secure Authentication**:
+  - **User Accounts**: Powered by `Passport.js` with local strategy for secure signup, login, and logout.
+  - **Encrypted Storage**: Automatic password hashing and salting using `passport-local-mongoose`.
+  - **Dynamic Navbar**: Intuitive UI that adapts to user state (Guest vs. Authenticated User).
 - **Architecture & Extensibility**:
   - **Modular Routing**: Powered by `Express.Router` for a clean, professional MVC-like structure.
   - **Review System**: Specialized nested routes and models for managing user feedback on listings.
@@ -238,9 +247,10 @@ A production-grade property listing platform with polished UX and robust session
 
 ## 🎯 Future Goals
 
-- **Authentication Logic**: Integrating **Bcrypt** for secure password hashing before storage in MySQL.
-- **Session Management**: Implementing user logins with **Passport.js** or **Express-Session**.
-- **Complex Joins**: Expanding the database to handle relational data (e.g., users "owning" individual posts).
+- **Authorization Logic**: Implementing ownership-based permissions (e.g., only authors can delete their reviews or edit their listings).
+- **Image Uploads**: Integrating **Cloudinary** for professional image hosting and management.
+- **Maps Integration**: Adding interactive maps with **Mapbox** for property locations.
+- **Deployment**: Taking the application live on a production cloud platform.
 
 ---
 

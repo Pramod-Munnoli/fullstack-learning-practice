@@ -5,10 +5,16 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const ExpressError = require("./utils/ExpressError");
 const wrapAsync = require("./utils/wrapAsync"); 
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/reviews.js");
+
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/reviews.js");
+const userRouter = require("./routes/user.js");
+
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -33,8 +39,16 @@ const sessionOptions = {
       httpOnly: true,
      }
     }
+
 app.use(session(sessionOptions));
 app.use(flash()); 
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 main()
@@ -52,7 +66,8 @@ async function main() {
 // Middleware to set res.locals.success for flash messages
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error"); 
+  res.locals.error = req.flash("error");  
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -64,16 +79,19 @@ app.get(
   }),
 );
 
+// app.get("/demouser",async (req,res)=>{
+//   let fakeUser = new User({
+//     email:"Student@gmail.com",
+//     username:"delte-student"
+//   });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+//   let registeredUser = await User.register(fakeUser,"helloworld");
+//   res.send(registeredUser);
+// })
 
-// Example: Setting a cookie
-app.get("/setcookie", (req, res) => {
-  res.cookie("greet", "hello" , {signed: true});
-  res.cookie("name", "Pramod", {signed: false});
-  res.send("Sent you some cookies!");
-});
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
 
 // Example: Reading cookies using req.cookies (thanks to cookie-parser)
 app.get("/greet", (req, res) => {
