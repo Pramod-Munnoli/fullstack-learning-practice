@@ -139,6 +139,11 @@ To get this project up and running on your local machine, follow these steps:
   - Mastered **Signed Cookies** for security, preventing client-side tampering via secret keys.
 - **Advanced Data Modeling (Mongoose Relationships)**:
   - **One-to-Many**: Implemented a robust "Listing-to-Review" relationship using ObjectIDs and `.populate()`.
+- **Authorization & Ownership Logic**:
+  - **Listing Ownership**: Implemented logic to associate each listing with an owner, ensuring only the creator can edit or delete their property.
+  - **Review Authorship**: Automated the association of reviews with the logged-in user, allowing only authors to remove their own feedback.
+  - **Secure Authorization Middleware**: Developed `isOwner` and `isReviewAuthor` backend guards to prevent unauthorized data mutations.
+  - **Conditional UI Rendering**: Dynamically show/hide "Edit" and "Delete" buttons based on user permissions for both listings and reviews.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -224,21 +229,22 @@ A dynamic backend project demonstrating real-world data rendering:
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
-### 🏨 Wanderlust (AirBnB Clone - Phase 3)
+### 🏨 Wanderlust (AirBnB Clone - Phase 4)
 
-A professional property listing platform with full user lifecycle management and secure authentication:
+A professional property listing platform with full user lifecycle management, secure authentication, and robust authorization:
 
-- **Secure Authentication**:
+- **Secure Authentication & Authorization**:
   - **User Accounts**: Powered by `Passport.js` with local strategy for secure signup, login, and logout.
+  - **Authorization Layers**: Implemented ownership logic ensuring users can only manage their own listings and reviews.
   - **Encrypted Storage**: Automatic password hashing and salting using `passport-local-mongoose`.
-  - **Dynamic Navbar**: Intuitive UI that adapts to user state (Guest vs. Authenticated User).
+  - **Dynamic UI**: Intuitive interface that adapts to user state (Guest vs. Owner vs. Authenticated User).
 - **Architecture & Extensibility**:
   - **Modular Routing**: Powered by `Express.Router` for a clean, professional MVC-like structure.
-  - **Review System**: Specialized nested routes and models for managing user feedback on listings.
+  - **Review System**: Specialized nested routes and models for managing user feedback with author attribution.
   - **Security & Error Resilience**: Powered by `wrapAsync`, custom `ExpressError`, and **Signed Cookies** for secure state management.
 - **User Experience (Session & Flash)**:
   - **Session-Backed State**: `express-session` ensures persistent, secure user sessions across requests.
-  - **Flash Notifications**: Dismissible success/error toasts via `connect-flash`, seamlessly integrated into the global EJS layout.
+  - **Dynamic Flash Notifications**: Dismissible success/error toasts with customized messaging based on user actions and permissions.
   - **Reusable UI Partials**: Extracted `navbar.ejs`, `footer.ejs`, and `flash.ejs` into a dedicated `/views/includes/` folder for DRY layout management.
 - **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.

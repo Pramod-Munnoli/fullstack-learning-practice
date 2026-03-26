@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
-const { listingSchema } = require("../schema.js");
-const ExpressError = require("../utils/ExpressError");
 const Listing = require("../models/listing");
+const { isLoggedIn, isOwner,validateListing } = require("../middleware.js");
 
 // Index Route
 router.get(
@@ -15,7 +14,7 @@ router.get(
 );
 
 // New Route
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new");
 });
 
@@ -24,7 +23,14 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id)
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+      },
+    })
+    .populate("owner");
     if(!listing){
       req.flash("error", "Listing not found!");
       return res.redirect("/listings");
@@ -33,20 +39,10 @@ router.get(
   }),
 );
 
-// Validate Listing Middleware
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
-
 // Create Route
-router.post( "/",validateListing,wrapAsync(async (req, res) => {
+router.post( "/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -56,6 +52,8 @@ router.post( "/",validateListing,wrapAsync(async (req, res) => {
 // Edit Route
 router.get(
   "/:id/edit",
+   isLoggedIn, isOwner,
+
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -70,6 +68,7 @@ router.get(
 // Update Route
 router.put(
   "/:id",
+  isLoggedIn,isOwner,
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -79,20 +78,10 @@ router.put(
   }),
 );
 
-
-// Middleware to protect the remove route
-const checkToken = (req, res, next) => {
-  let { token } = req.query; // Check for ?token=... in the URL
-  if (token === "giveaccess") {
-    return next();
-  }
-  throw new ExpressError(401, "You are not authorized to delete this listing");
-};
-
-// Delete route - Now protected because the path matches!
+// Delete route - Now protected by isOwner middleware
 router.delete(
-  "/:id/remove",
-  checkToken,
+  "/:id/remove", 
+  isLoggedIn, isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);

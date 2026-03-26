@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div class="max-w-4xl mx-auto py-10">
+    <div class="max-w-5xl mx-auto py-10">
         <!-- Back Button -->
         <a href="/listings"
             class="inline-flex items-center gap-2 text-slate-500 hover:text-[#ff385c] mb-6 font-semibold transition-colors">
@@ -30,11 +30,14 @@
                         <div class="flex items-center gap-4 text-slate-500 mb-6">
                             <span class="flex items-center gap-1"><i
                                     class="fa-solid fa-location-dot text-[#ff385c]"></i>
-                                <%= listing.location %>, <%= listing.country %>
+                                <%= listing.location %>,<%= listing.country %>
                             </span>
                             <!-- Review  -->
                             <span class="flex items-center gap-1 font-semibold text-slate-900"><i
-                                    class="fa-solid fa-star text-xs"></i> 4.9 · 12 reviews</span>
+                                    class="fa-solid fa-star text-xs"></i> <%= listing.reviews.length %> reviews</span>
+
+                            <span class="flex items-center gap-1 font-semibold text-slate-900"><i
+                                    class="fa-solid fa-user text-xs"></i> Owned by: <%= listing.owner.username %></span>
                         </div>
 
                         <div class="prose prose-slate max-w-none">
@@ -48,7 +51,7 @@
                     <!-- Pricing Card (Desktop) -->
                     <div class="w-full md:w-80 bg-slate-50 rounded-2xl p-6 border border-slate-200 sticky top-24">
                         <div class="flex items-baseline gap-1 mb-6">
-                            <span class="text-3xl font-bold text-slate-900">&#8377; <%=
+                            <span class="text-3xl font-bold text-slate-900">&#8377;<%=
                                     listing.price.toLocaleString("en-IN") %></span>
                             <span class="text-slate-500">night</span>
                         </div>
@@ -80,20 +83,23 @@
                 </div>
 
                 <!-- Admin Actions -->
-                <div class="mt-12 pt-8 border-t border-slate-100 flex items-center gap-4">
+                <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+                <div class="mt-8 pt-8 border-t border-slate-100 flex items-center gap-4">
                     <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary gap-2">
                         <i class="fa-solid fa-pen-to-square"></i> Edit
                     </a>
-                    <form action="/listings/<%= listing._id %>/remove?_method=DELETE&token=giveaccess" method="post"
+                    <form action="/listings/<%= listing._id %>/remove?_method=DELETE" method="post"
                         class="m-0 p-0 shadow-none bg-transparent">
                         <button class="btn btn-danger gap-2">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
                     </form>
                 </div>
+              <% } %>
 
                 <!-- Review Section -->
-                <div class="mt-5 pt-12 border-t border-slate-100">
+                 <% if(currUser) { %> 
+                <div class="mt-5 pt-8 border-t border-slate-100">
                     <div class="bg-slate-50 rounded-3xl p-8 md:p-10 border border-slate-100">
                         <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-pen-nib text-[#ff385c]"></i>
@@ -133,7 +139,6 @@
                                 <p class="text-xs text-red-500 font-medium hidden peer-[.is-invalid]:block">Please share
                                     some comments for your review.</p>
                             </div>
-
                             <button type="submit"
                                 class="bg-slate-900 hover:bg-black text-white font-bold py-4 px-8 rounded-2xl transition-all active:scale-95 shadow-lg flex items-center gap-2">
                                 <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -142,6 +147,7 @@
                         </form>
                     </div>
                 </div>
+                <% } %>
                 
                 <!-- show.ejs -->
                 <div class="mt-5 bg-slate-50 rounded-3xl p-8 md:p-10 border border-slate-100">
@@ -150,13 +156,17 @@
                         <% if (listing.reviews && listing.reviews.length> 0) { %>
                             <% for(let review of listing.reviews) { %>
                                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                    <p class="font-bold text-slate-800">Rating: <%= review.rating %> Stars</p>
+                                    <p><b><%= review.author.username %></b></p>
+                                    <span class="flex items-center gap-1 font-semibold text-slate-900"><i
+                                    class="fa-solid fa-star text-xs"></i> <%= review.rating %></span>
                                     <p class="text-slate-600">
                                         <%= review.comment %>
                                     </p>
+                                    <% if(currUser && review.author && currUser._id.equals(review.author._id)) { %>
                                     <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
                                         <button class="rounded-xl p-1 m-1 bg-slate-900 hover:bg-black text-white text-sm">Delete</button>
                                     </form>
+                                    <% } %>
                                 </div>
                                 <% } %>
                                 <% } else { %>
@@ -169,3 +179,5 @@
             </div>
         </div>
     </div>
+
+    

@@ -9,7 +9,8 @@ const wrapAsync = require("./utils/wrapAsync");
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/user.js");
-
+const {isLoggedIn} = require("./middleware.js");
+ 
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
