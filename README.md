@@ -144,18 +144,6 @@ To get this project up and running on your local machine, follow these steps:
   - **Review Authorship**: Automated the association of reviews with the logged-in user, allowing only authors to remove their own feedback.
   - **Secure Authorization Middleware**: Developed `isOwner` and `isReviewAuthor` backend guards to prevent unauthorized data mutations.
   - **Conditional UI Rendering**: Dynamically show/hide "Edit" and "Delete" buttons based on user permissions for both listings and reviews.
-- **MVC (Model-View-Controller) Architecture**:
-  - **Logic Separation**: Refactored monolithic route files by moving complex callback logic into a dedicated `/controllers` directory.
-  - **Enhanced Readability**: Cleaned up route definitions to focus purely on URL structures and HTTP methods.
-- **Cloud Integration & File Uploads**:
-  - **Multer Middleware**: Integrated `multer` to handle `multipart/form-data` for robust file uploading from forms.
-  - **Cloudinary Hosting**: Migrated listing images from local strings to professional cloud hosting via **Cloudinary**.
-  - **Image Transformations**: Implemented dynamic URL manipulation to serve optimized thumbnails and high-res previews.
-- **Maps & Geocoding**:
-  - **MapTiler Integration**: Connected the backend to the **MapTiler Geocoding API** to automatically convert listing locations into GeoJSON coordinates.
-  - **Spatial Data Persistence**: Stored geometry data (Latitude/Longitude) within the MongoDB listing schema for future map integration.
-- **Security & Environment Management**:
-  - **Dotenv Integration**: Successfully implemented `.env` file support to secure sensitive configuration like API keys and Cloudinary secrets.
 - **Development Workflow**: Implementation of `nodemon` and `package.json` scripts for efficient coding cycles.
 
 ---
@@ -241,26 +229,25 @@ A dynamic backend project demonstrating real-world data rendering:
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
-### 🏨 Wanderlust (AirBnB Clone - Phase 5)
+### 🏨 Wanderlust (AirBnB Clone - Phase 4)
 
-A high-performance property listing platform with MVC architecture, cloud-backed media, and spatial data integration:
+A professional property listing platform with full user lifecycle management, secure authentication, and robust authorization:
 
-- **Refined Architecture (MVC)**:
-  - **Clean Codebase**: Logic is fully decarbonized from routes into specialized controllers for Listings, Reviews, and Users.
-- **Cloud-Powered Media**:
-  - **Infinite Scalability**: Images are now stored on **Cloudinary**, providing faster load times and professional-grade hosting.
-  - **Reliable Uploading**: Powered by `multer` and `multer-storage-cloudinary` for seamless form-to-cloud transfers.
-- **Intelligent Data (Mapping)**:
-  - **Automatic Geocoding**: Powered by **MapTiler**, turning simple addresses into precise geographical coordinates.
-  - **GeoJSON Compliance**: Storing spatial data in standard GeoJSON format for interoperability with mapping libraries.
 - **Secure Authentication & Authorization**:
   - **User Accounts**: Powered by `Passport.js` with local strategy for secure signup, login, and logout.
-  - **Authorization Layers**: Backend guards ensure users can only manage their own listings and reviews.
-  - **Secret Management**: API keys and environment configurations are securely handled via `dotenv`.
-- **User Experience & UX**:
-  - **Dynamic Flash Notifications**: Dismissible success/error toasts with customized messaging based on user actions.
-  - **Responsive Templates**: Continued refinement of EJS layouts with Tailwind styling and partials.
-- **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive client-side experience.
+  - **Authorization Layers**: Implemented ownership logic ensuring users can only manage their own listings and reviews.
+  - **Encrypted Storage**: Automatic password hashing and salting using `passport-local-mongoose`.
+  - **Dynamic UI**: Intuitive interface that adapts to user state (Guest vs. Owner vs. Authenticated User).
+- **Architecture & Extensibility**:
+  - **Modular Routing**: Powered by `Express.Router` for a clean, professional MVC-like structure.
+  - **Review System**: Specialized nested routes and models for managing user feedback with author attribution.
+  - **Security & Error Resilience**: Powered by `wrapAsync`, custom `ExpressError`, and **Signed Cookies** for secure state management.
+- **User Experience (Session & Flash)**:
+  - **Session-Backed State**: `express-session` ensures persistent, secure user sessions across requests.
+  - **Dynamic Flash Notifications**: Dismissible success/error toasts with customized messaging based on user actions and permissions.
+  - **Reusable UI Partials**: Extracted `navbar.ejs`, `footer.ejs`, and `flash.ejs` into a dedicated `/views/includes/` folder for DRY layout management.
+- **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
+- **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
 ---
 

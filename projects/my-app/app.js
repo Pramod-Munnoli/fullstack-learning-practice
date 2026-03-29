@@ -11,10 +11,10 @@ const wrapAsync = require("./utils/wrapAsync");
 
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/reviews.js");
-const userRouter = require("./routes/user.js");
-const {isLoggedIn} = require("./middleware.js");
+const userRouter = require("./routes/user.js"); 
  
 const session = require("express-session");
+const MongoStore = require("connect-mongo").MongoStore;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -32,17 +32,31 @@ app.use(express.json()); // Allow the app to parse JSON data from Postman or oth
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser("secretcode"));
+ 
+const store = MongoStore.create({
+  mongoUrl: process.env.ATLASDB_URL,
+  crypto: {
+    secret: process.env.SECRET || "mysupersecretstring",
+  },
+  touchAfter: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+});
+
+store.on("error", function (err) {
+  console.log("Error in Mongo session Store", err);
+});
 
 const sessionOptions = {
-    secret: "mysupersecretstring",
-     resave:false , 
-     saveUninitialized:true,
-     cookie: {
-      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-     }
-    }
+  store: store,
+  secret: process.env.SECRET || "mysupersecretstring",
+  resave:false , 
+  saveUninitialized:true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  }
+}
+
 
 app.use(session(sessionOptions));
 app.use(flash()); 
@@ -54,7 +68,9 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const DB_URL = process.env.ATLASDB_URL;
+
 main()
   .then(() => {
     console.log("connection success full");
@@ -64,7 +80,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(DB_URL);
 }
 
 // Middleware to set res.locals.success for flash messages
@@ -130,6 +146,7 @@ app.use((err, req, res, next) => {
   res.status(status).render("error", { message });
 });
 
-app.listen(8000, () => {
-  console.log("server is workig on http://localhost:8000/");
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`server is working on http://localhost:${PORT}/`);
 });

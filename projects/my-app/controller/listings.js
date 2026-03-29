@@ -2,8 +2,23 @@ const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync");
 
 module.exports.index = wrapAsync(async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index", { allListings });
+  const { q, category } = req.query;
+  let filter = {};
+
+  if (category) {
+    filter.category = category;
+  }
+
+  if (q) {
+    filter.$or = [
+      { title: { $regex: q, $options: "i" } },
+      { location: { $regex: q, $options: "i" } },
+      { country: { $regex: q, $options: "i" } },
+    ];
+  }
+
+  const allListings = await Listing.find(filter);
+  res.render("listings/index", { allListings, q, category });
 });
 
 module.exports.renderNewForm = wrapAsync(async (req, res) => {

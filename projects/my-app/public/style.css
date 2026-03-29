@@ -118,3 +118,51 @@ body {
     color: #fbbf24 !important;
 }
 
+/* Filter Bar Styles */
+#filters {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+#filters::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Tax Switch Toggle Custom Styles */
+.form-switch input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#flexSwitchCheckDefault {
+    width: 3rem;
+    height: 1.5rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,.25)'/%3e%3c/svg%3e");
+    background-position: left center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 2em;
+    transition: background-position .15s ease-in-out;
+}
+
+#flexSwitchCheckDefault:checked {
+    background-position: right center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+

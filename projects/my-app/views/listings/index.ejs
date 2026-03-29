@@ -1,11 +1,37 @@
 <% layout("layouts/boilerplate") %> 
 <div class="max-w-7xl mx-auto px-4 md:px-8 py-10">
-    <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 class="text-4xl font-extrabold text-slate-900 mb-0">Discover Destinations</h1>
-        <div class="flex gap-4">
-            <button class="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm hover:shadow-md transition-all text-sm font-semibold">
-                <i class="fa-solid fa-sliders"></i> Filters
-            </button>
+    <!-- Filters Section -->
+    <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div id="filters" class="flex items-center gap-8 overflow-x-auto pb-2 scrollbar-hide no-scrollbar flex-grow">
+            <% const categories = [
+                { name: "Trending", icon: "fire" },
+                { name: "Rooms", icon: "bed" },
+                { name: "Iconic Cities", icon: "mountain-city" },
+                { name: "Mountains", icon: "mountain" },
+                { name: "Castles", icon: "fort-awesome" },
+                { name: "Amazing Pools", icon: "person-swimming" },
+                { name: "Camping", icon: "campground" },
+                { name: "Farms", icon: "wheat-awn" },
+                { name: "Arctic", icon: "snowflake" },
+                { name: "Domes", icon: "igloo" },
+                { name: "Boats", icon: "ship" }
+            ]; %>
+            
+            <% for(let cat of categories) { %>
+                <a href="/listings?category=<%= cat.name %>" class="flex flex-col items-center gap-2 min-w-fit group cursor-pointer opacity-70 hover:opacity-100 transition-opacity <%= typeof category !== 'undefined' && category === cat.name ? 'opacity-100 border-b-2 border-slate-900 pb-1' : '' %>">
+                    <div class="text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-<%= cat.icon %>"></i>
+                    </div>
+                    <span class="text-xs font-semibold whitespace-nowrap"><%= cat.name %></span>
+                </a>
+            <% } %>
+        </div>
+
+        <div class="flex items-center gap-4 border border-slate-200 p-4 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
+            <div class="form-check form-switch flex items-center gap-3">
+                <label class="text-sm font-semibold text-slate-700 cursor-pointer" for="flexSwitchCheckDefault">Display total after taxes</label>
+                <input class="w-10 h-5 bg-slate-200 rounded-full appearance-none cursor-pointer relative transition-all checked:bg-primary" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            </div>
         </div>
     </div>
 
@@ -28,9 +54,26 @@
                 <span class="text-sm text-slate-500 mt-1"><%= listing.location %>, <%= listing.country %></span>
                 <div class="mt-2 font-semibold text-slate-900">
                     &#8377; <% if(listing.price) { %><%= listing.price.toLocaleString("en-IN") %><% } else { %>0<% } %> <span class="font-normal text-slate-500">night</span>
+                    <i class="tax-info text-sm text-primary font-medium ml-1 hidden"> &nbsp; +18% GST</i>
                 </div>
             </div>
         </div>
     <% } %>
     </div>
 </div>
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    if (taxSwitch) {
+        taxSwitch.addEventListener("change", () => {
+            let taxInfo = document.getElementsByClassName("tax-info");
+            for (let info of taxInfo) {
+                if (taxSwitch.checked) {
+                    info.classList.remove("hidden");
+                } else {
+                    info.classList.add("hidden");
+                }
+            }
+        });
+    }
+</script>
