@@ -21,6 +21,12 @@ const listingSchema = new Schema({
       ref: "Reviews",
     },
   ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",

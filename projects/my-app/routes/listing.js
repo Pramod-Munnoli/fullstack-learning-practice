@@ -29,6 +29,9 @@ router.route("/:id")
 // Delete Route
     .delete(isLoggedIn, isOwner, listingController.deleteListing);
 
+// Like Route
+router.post("/:id/like", isLoggedIn, listingController.toggleLike);
+
 // Edit Route
 router.get("/:id/edit",
  isLoggedIn, isOwner, 

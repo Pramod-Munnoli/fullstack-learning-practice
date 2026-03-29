@@ -12,11 +12,16 @@
             <!-- Main Image -->
             <div class="relative h-[400px] md:h-[500px]">
                 <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="w-full h-full object-cover">
-                <div class="absolute top-6 right-6">
+                <div class="absolute top-6 right-6 z-10 flex flex-col items-center gap-1">
                     <button
+                        onclick="toggleLike(this, '<%= listing._id %>')"
                         class="bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all text-[#ff385c]">
-                        <i class="fa-regular fa-heart text-xl"></i>
+                        <% let isLiked = typeof currUser !== 'undefined' && currUser && listing.likes && listing.likes.some(id => id.toString() === currUser._id.toString()); %>
+                        <i class="fa-heart text-xl transition-colors <%= isLiked ? 'fa-solid' : 'fa-regular' %>"></i>
                     </button>
+                    <span class="like-count bg-white/80 backdrop-blur-sm text-slate-700 text-xs font-bold px-2 py-0.5 rounded-full shadow">
+                        <%= listing.likes ? listing.likes.length : 0 %>
+                    </span>
                 </div>
             </div>
 
@@ -229,6 +234,41 @@
         // If no coordinates, you can hide the map container or show a message
         mapContainer.style.display = "none";
         console.warn("Map not initialized: Missing API key or coordinates.");
+    }
+
+    async function toggleLike(btn, listingId) {
+        try {
+            const response = await fetch(`/listings/${listingId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 401 || response.redirected && response.url.includes('/login')) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (response.ok) {
+                const data = await response.json();
+                const icon = btn.querySelector('i');
+                // update count — look for sibling .like-count
+                const countEl = btn.closest('div').querySelector('.like-count');
+                if (data.liked) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } else {
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                }
+                if (countEl) countEl.textContent = data.likesCount;
+            } else {
+                console.error("Failed to toggle like", await response.text());
+            }
+        } catch (error) {
+            console.error("Error toggling like:", error);
+        }
     }
 </script>
 

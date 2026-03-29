@@ -229,9 +229,9 @@ A dynamic backend project demonstrating real-world data rendering:
 - **CDN Images**: Uses professional Unsplash photography to populate a realistic "grid" view.
 - **Interactive UI**: Shared layout structure using EJS partials for a consistent professional feel.
 
-### 🏨 Wanderlust (AirBnB Clone - Phase 4)
+### 🏨 Wanderlust (AirBnB Clone - Phase 5)
 
-A professional property listing platform with full user lifecycle management, secure authentication, and robust authorization:
+A professional property listing platform with full user lifecycle management, secure authentication, robust authorization, and rich interactive features:
 
 - **Secure Authentication & Authorization**:
   - **User Accounts**: Powered by `Passport.js` with local strategy for secure signup, login, and logout.
@@ -246,6 +246,12 @@ A professional property listing platform with full user lifecycle management, se
   - **Session-Backed State**: `express-session` ensures persistent, secure user sessions across requests.
   - **Dynamic Flash Notifications**: Dismissible success/error toasts with customized messaging based on user actions and permissions.
   - **Reusable UI Partials**: Extracted `navbar.ejs`, `footer.ejs`, and `flash.ejs` into a dedicated `/views/includes/` folder for DRY layout management.
+- **Category Filtering**: Added category tags (Trending, Rooms, Mountains, Castles, etc.) to listings with a horizontal filter bar on the index page for one-click browsing.
+- **Tax Toggle (UX)**: Implemented a "Display total after taxes" toggle switch on the listings index that dynamically shows/hides a +18% GST indicator per card using vanilla JS.
+- **Like / Unlike System**:
+  - Persistent `likes` array stored on the `Listing` MongoDB model.
+  - Heart button on the show page toggles a like via a `POST /listings/:id/like` fetch call — no page reload.
+  - Live like count badge updates instantly in the UI; redirects unauthenticated users to login.
 - **Validation Logic**: Dual-layer resilience using **Joi** for schema enforcement and **Tailwind Peer classes** for a responsive, interactive client-side experience.
 - **Static Assets**: Organized serving of CSS and JS from a dedicated `/public` directory.
 
@@ -253,7 +259,6 @@ A professional property listing platform with full user lifecycle management, se
 
 ## 🎯 Future Goals
 
-- **Authorization Logic**: Implementing ownership-based permissions (e.g., only authors can delete their reviews or edit their listings).
 - **Image Uploads**: Integrating **Cloudinary** for professional image hosting and management.
 - **Maps Integration**: Adding interactive maps with **Mapbox** for property locations.
 - **Deployment**: Taking the application live on a production cloud platform.

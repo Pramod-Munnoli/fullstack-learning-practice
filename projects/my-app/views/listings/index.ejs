@@ -42,8 +42,12 @@
                 <% if(listing.image && listing.image.url) { %>
                     <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500">
                 <% } %>
-                <div class="absolute top-3 right-3 text-white">
-                    <i class="fa-regular fa-heart text-xl drop-shadow-md"></i>
+                <div class="absolute top-3 right-3 z-10">
+                    <button class="like-btn flex items-center gap-1 bg-black/40 hover:bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 transition-all" onclick="event.stopPropagation(); event.preventDefault(); toggleLike(this, '<%= listing._id %>')">
+                        <% let isLiked = typeof currUser !== 'undefined' && currUser && listing.likes && listing.likes.some(id => id.toString() === currUser._id.toString()); %>
+                        <i class="fa-heart text-lg drop-shadow-md transition-colors text-white <%= isLiked ? 'fa-solid' : 'fa-regular' %>"></i>
+                        <span class="like-count text-white text-xs font-semibold"><%= listing.likes ? listing.likes.length : 0 %></span>
+                    </button>
                 </div>
             </div>
             <div class="flex flex-col">
@@ -75,5 +79,39 @@
                 }
             }
         });
+    }
+
+    async function toggleLike(btn, listingId) {
+        try {
+            const response = await fetch(`/listings/${listingId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 401 || response.redirected && response.url.includes('/login')) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (response.ok) {
+                const data = await response.json();
+                const icon = btn.querySelector('i');
+                const countEl = btn.querySelector('.like-count');
+                if (data.liked) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } else {
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                }
+                if (countEl) countEl.textContent = data.likesCount;
+            } else {
+                console.error("Failed to toggle like", await response.text());
+            }
+        } catch (error) {
+            console.error("Error toggling like:", error);
+        }
     }
 </script>

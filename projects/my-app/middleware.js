@@ -7,6 +7,12 @@ const wrapAsync = require("./utils/wrapAsync");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
+        // If it's an AJAX / fetch request, return 401 JSON instead of redirecting
+        const isAjax = req.headers['accept'] && req.headers['accept'].includes('application/json');
+        if (isAjax) {
+            return res.status(401).json({ error: "You must be logged in!" });
+        }
+
         req.session.redirectUrl = req.originalUrl;
         // Default message
         let message = "You must be logged in!";

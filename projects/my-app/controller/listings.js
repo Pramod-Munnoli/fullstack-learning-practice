@@ -146,3 +146,20 @@ module.exports.deleteListing = wrapAsync(async (req, res) => {
   req.flash("success", "Listing deleted successfully!");
   res.redirect("/listings");
 });
+
+module.exports.toggleLike = wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  if (!listing) {
+    return res.status(404).json({ error: "Listing not found" });
+  }
+
+  const userId = req.user._id;
+  if (listing.likes.includes(userId)) {
+    listing.likes.pull(userId);
+  } else {
+    listing.likes.push(userId);
+  }
+  await listing.save();
+  res.json({ liked: listing.likes.includes(userId), likesCount: listing.likes.length });
+});
