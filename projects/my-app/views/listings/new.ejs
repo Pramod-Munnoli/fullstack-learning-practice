@@ -6,7 +6,7 @@
             Create New Listing
         </h1>
 
-        <form action="/listings" method="post" novalidate class="needs-validation space-y-6">
+        <form action="/listings" method="post" novalidate class="needs-validation space-y-6" enctype="multipart/form-data">
             
             <!-- Title Field -->
             <div class="space-y-1">
@@ -35,11 +35,11 @@
                 </div>
                 <p class="text-xs text-red-600 font-medium hidden peer-[.is-invalid]:block">Description is required.</p>
             </div>
-
+            
             <!-- Image URL Field -->
             <div class="space-y-1">
-                <label for="image" class="block text-sm font-semibold text-gray-700">Image URL</label>
-                <input type="text" name="listing[image][url]" id="image"  
+                <label for="image" class="block text-sm font-semibold text-gray-700">Upload Listing Image</label>
+                <input type="file" name="listing[image]" id="image"  required
                     class="peer w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition-all focus:ring-2 focus:ring-[#ff385c]/20 focus:border-[#ff385c]
                       valid:[&.is-valid]:border-green-500"
                     placeholder="https://images.unsplash.com/...">

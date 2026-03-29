@@ -3,6 +3,7 @@ const Review = require("./models/review");
 const { listingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError");
 const { reviewSchema } = require("./schema.js");
+const wrapAsync = require("./utils/wrapAsync"); 
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -31,7 +32,7 @@ module.exports.saveRedirectUrl = (req,res,next)=>{
     next();
 }
 
-module.exports.isOwner = async (req, res, next) => {
+module.exports.isOwner = wrapAsync(async (req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     if (!listing) {
@@ -43,9 +44,9 @@ module.exports.isOwner = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
-};
+});
 
-module.exports.isReviewAuthor = async (req, res, next) => {
+module.exports.isReviewAuthor = wrapAsync(async (req, res, next) => {
     let { id, reviewId } = req.params;
     let review = await Review.findById(reviewId);
     if (!review.author.equals(res.locals.currUser._id)) {
@@ -53,7 +54,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
-};
+});
 
 // Validate Listing Middleware
 module.exports.validateListing = (req, res, next) => {
