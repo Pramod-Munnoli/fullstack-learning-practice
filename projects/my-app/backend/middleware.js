@@ -14,6 +14,9 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.isOwner = wrapAsync(async (req, res, next) => {
     let { id } = req.params;
+    if (!id || id === "undefined") {
+        return res.status(400).json({ success: false, message: "Invalid Listing ID provided!" });
+    }
     let listing = await Listing.findById(id);
     if (!listing) {
         return res.status(404).json({ success: false, message: "Listing not found!" });
