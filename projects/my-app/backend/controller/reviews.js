@@ -1,0 +1,24 @@
+const Review = require("../models/review");
+const Listing = require("../models/listing");
+const wrapAsync = require("../utils/wrapAsync");
+
+module.exports.createReview = wrapAsync(async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    if (!listing) {
+        return res.status(404).json({ success: false, message: "Listing not found!" });
+    }
+    let newReview = new Review(req.body.reviews);
+    newReview.author = req.user._id;
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    res.status(201).json({ success: true, review: newReview, message: "Review added successfully!" });
+});
+
+module.exports.deleteReview = wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.json({ success: true, message: "Review deleted successfully!" });
+});
+
