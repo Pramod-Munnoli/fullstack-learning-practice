@@ -1,9 +1,9 @@
+const path = require("path");
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+  require("dotenv").config({ path: path.join(__dirname, ".env"), override: true });
 }
 const express = require("express");
 const app = express();
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
