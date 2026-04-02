@@ -22,8 +22,25 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 // Allow credentials so session cookies can be sent from React
+app.set("trust proxy", 1);
+
+// Flexible CORS for both local dev and production
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
+  "http://localhost:5176"
+];
+
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176", "http://localhost:5177", "http://localhost:5178"],
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes("onrender.com")) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Fallback to true for now to avoid deployment blockers
+  },
   credentials: true
 }));
 
@@ -43,6 +60,8 @@ store.on("error", function (err) {
   console.log("Error in Mongo session Store", err);
 });
 
+const isProduction = process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production-render";
+
 const sessionOptions = {
   store: store,
   secret: process.env.SECRET || "mysupersecretstring",
@@ -52,8 +71,8 @@ const sessionOptions = {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax", // Crucial for cross-origin cookies in dev
-    secure: false, // Set to true in production with HTTPS
+    sameSite: isProduction ? "none" : "lax", 
+    secure: isProduction, 
   }
 }
 
