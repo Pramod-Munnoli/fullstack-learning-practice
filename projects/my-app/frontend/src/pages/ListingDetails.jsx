@@ -122,13 +122,17 @@ function ListingDetails() {
     };
 
     const handleDeleteListing = async () => {
+        if (!window.confirm("Are you sure you want to delete this listing?")) return;
+        
+        setLoading(true); // Lock the UI immediately
         try {
             const response = await api.delete(`/listings/${id}`);
             if (response.data.success) {
                 showFlash('success', "Listing deleted successfully!");
-                navigate('/');
+                navigate('/', { replace: true });
             }
         } catch (err) {
+            setLoading(false); // Only unlock if it failed
             showFlash('error', err.response?.data?.message || "Delete failed");
         }
     };
