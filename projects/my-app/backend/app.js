@@ -15,11 +15,12 @@ const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/user.js");
 
-const session = require("express-session");
-const { MongoStore } = require("connect-mongo");
+// const session = require("express-session");
+// const { MongoStore } = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
+const User = require("./models/user.js"); 
+const jwt = require("jsonwebtoken"); // <-- ADD THIS
 
 // Allow credentials so session cookies can be sent from React
 app.set("trust proxy", 1);
@@ -48,38 +49,38 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser("secretcode"));
 
-const store = MongoStore.create({
-  mongoUrl: process.env.ATLASDB_URL,
-  crypto: {
-    secret: process.env.SECRET || "mysupersecretstring",
-  },
-  touchAfter: 24 * 60 * 60 * 1000,
-});
+// const store = MongoStore.create({
+//   mongoUrl: process.env.ATLASDB_URL,
+//   crypto: {
+//     secret: process.env.SECRET || "mysupersecretstring",
+//   },
+//   touchAfter: 24 * 60 * 60 * 1000,
+// });
 
-store.on("error", function (err) {
-  console.log("Error in Mongo session Store", err);
-});
+// store.on("error", function (err) {
+//   console.log("Error in Mongo session Store", err);
+// });
 
-const isProduction = process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production-render";
+// const isProduction = process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production-render";
 
-const sessionOptions = {
-  store: store,
-  secret: process.env.SECRET || "mysupersecretstring",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: isProduction ? "none" : "lax", 
-    secure: isProduction, 
-  }
-}
+// const sessionOptions = {
+//   store: store,
+//   secret: process.env.SECRET || "mysupersecretstring",
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+//     maxAge: 7 * 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+//     sameSite: isProduction ? "none" : "lax", 
+//     secure: isProduction, 
+//   }
+// }
 
-app.use(session(sessionOptions));
+// app.use(session(sessionOptions));
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
@@ -99,14 +100,26 @@ async function main() {
   await mongoose.connect(DB_URL);
 }
 
-// Global user middleware
-app.use((req, res, next) => {
+// This will try to find the user from the token on EVERY request
+app.use(async (req, res, next) => {
+  const authHeader = req.get("Authorization");
+  const token = authHeader && authHeader.split(" ")[1];
+  
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await User.findById(decoded.id);
+    } catch (err) {
+      req.user = null; // Token invalid, user is guest
+    }
+  }
   res.locals.currUser = req.user;
   next();
 });
 
+
 // API endpoint to check current user session
-app.get("/api/current-user", (req, res) => {
+app.get("/api/current-user", (req, res) => { // Add isLoggedIn here
   res.json({ success: true, user: req.user || null });
 });
 

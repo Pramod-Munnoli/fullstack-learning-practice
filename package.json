@@ -21,6 +21,7 @@
     "cloudinary": "^1.41.0",
     "connect-mongo": "^6.0.0",
     "dotenv": "^17.3.1",
+    "jsonwebtoken": "^9.0.3",
     "multer": "^2.1.1",
     "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.7.0",

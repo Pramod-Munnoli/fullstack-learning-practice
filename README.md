@@ -120,6 +120,11 @@ To get this project up and running on your local machine, follow these steps:
   - Implemented a custom **ExpressError** class to handle HTTP status codes and descriptive messages systematically.
   - Developed a **wrapAsync** utility function to catch asynchronous errors in route handlers, eliminating the need for repetitive `try/catch` blocks.
   - Integrated global error-handling middleware that renders a specialized `error.ejs` view for a polished user experience.
+- **Stateless Authentication (JWT)**:
+    - **Token-Based Security**: Transitioned from session-based (cookies) to stateless **JSON Web Tokens (JWT)** for more scalable authentication.
+    - **Backend Verification**: Developed manual `isLoggedIn` middleware to verify tokens from the `Authorization` header on the server.
+    - **Frontend Persistence**: Implemented **Axios Interceptors** to automatically attach the JWT from `localStorage` to all outgoing API requests.
+    - **Global Auth State**: Integrated a global middleware in `app.js` to parse tokens on every request, populating `res.locals.currUser` for reactive UI updates across the SPA.
 - **Full Authentication (Passport.js)**:
   - Integrated **Passport** and **LocalStrategy** for secure user registration and login flows.
   - Leveraged **passport-local-mongoose** for automated username/password hashing and salting via Mongoose plugins.
@@ -234,6 +239,7 @@ A dynamic backend project demonstrating real-world data rendering:
 A professional property listing platform with full user lifecycle management, secure authentication, robust authorization, and rich interactive features:
 
 - **Secure Authentication & Authorization**:
+  - **Stateless JWT Auth**: Migration from session-based cookies to stateless **JSON Web Token (JWT)** authentication for improved scalability and security.
   - **User Accounts**: Powered by `Passport.js` with local strategy for secure signup, login, and logout.
   - **Authorization Layers**: Implemented ownership logic ensuring users can only manage their own listings and reviews.
   - **Encrypted Storage**: Automatic password hashing and salting using `passport-local-mongoose`.

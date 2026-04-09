@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkUserSession = async () => {
             try {
-                const response = await api.get('/api/current-user');
+                const response = await api.get('/current-user');
                 if (response.data.success) {
                     setUser(response.data.user);
                 }
@@ -23,9 +23,14 @@ export const AuthProvider = ({ children }) => {
         checkUserSession();
     }, []);
 
-    const login = (userData) => setUser(userData);
+    const login = (userData, token) => {
+    localStorage.setItem("token", token); // Save token
+    setUser(userData);
+    };
+
     const logout = async () => {
         try {
+            localStorage.removeItem("token"); 
             await api.get('/logout');
             setUser(null);
         } catch (err) {

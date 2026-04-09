@@ -21,7 +21,7 @@ function Signup() {
         try {
             const response = await api.post('/signup', formData);
             if (response.data.success) {
-                login(response.data.user);
+                login(response.data.user, response.data.token);
                 showFlash('success', "Welcome to Wanderlust, " + response.data.user.username + "!");
                 navigate('/');
             }

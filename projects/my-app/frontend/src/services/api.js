@@ -9,4 +9,12 @@ const api = axios.create({
     withCredentials: true // Crucial for Passport Session authentication!
 });
 
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token"); // Get token from storage
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`; // Add to header
+    }
+    return config;
+});
+
 export default api;

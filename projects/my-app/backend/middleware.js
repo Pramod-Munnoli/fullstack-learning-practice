@@ -5,11 +5,27 @@ const ExpressError = require("./utils/ExpressError");
 const { reviewSchema } = require("./schema.js");
 const wrapAsync = require("./utils/wrapAsync"); 
 
-module.exports.isLoggedIn = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        return res.status(401).json({ success: false, message: "You must be logged in!" });
+const jwt = require("jsonwebtoken");
+const User = require("./models/user");
+
+module.exports.isLoggedIn = async (req, res, next) => {
+    const authHeader = req.get("Authorization");
+    const token = authHeader && authHeader.split(" ")[1];
+   if (!token) {
+        return res.status(401).json({ success: false, message: "No token provided!" });
     }
-    next();
+    try {
+        // 2. Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        // 3. Attach user to request so other middlewares can use it
+        req.user = await User.findById(decoded.id);
+        next();
+    } catch (err) {
+        return res.status(403).json({ success: false,
+             message: "Invalid or expired token!" 
+        });
+    }
+
 };
 
 module.exports.isOwner = wrapAsync(async (req, res, next) => {
