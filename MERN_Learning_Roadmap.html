@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERN Stack Learning Roadmap - Pramod Munnoli</title>
+    <style>
+        :root {
+            --primary: #00b894;
+            --secondary: #0984e3;
+            --bg: #ffffff;
+            --text: #2d3436;
+            --accent: #6c5ce7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: var(--bg);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            background: #dfe6e9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            border: 1px solid #dfe6e9;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fdfdfd;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            border-left: 5px solid var(--secondary);
+            padding-left: 10px;
+            margin-top: 0;
+            color: var(--secondary);
+        }
+
+        .completed-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .completed-list li::before {
+            content: '✓ ';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .next-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-list li::before {
+            content: '🎯 ';
+            color: var(--accent);
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-style: italic;
+            color: #636e72;
+            border-top: 1px solid #dfe6e9;
+            padding-top: 20px;
+        }
+
+        .resources {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f1f2f6;
+            border-radius: 10px;
+        }
+
+        .resources h2 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        .resource-link {
+            display: block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: var(--text);
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .resource-link:hover {
+            color: var(--accent);
+        }
+
+        .resource-link b {
+            display: block;
+            color: var(--accent);
+        }
+
+        .priority-box {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff9db;
+            border: 2px solid #fab005;
+            border-radius: 10px;
+        }
+
+        .priority-box h2 {
+            color: #f08c00;
+            margin-top: 0;
+        }
+
+        .priority-item {
+            margin-bottom: 15px;
+        }
+
+        .priority-item b {
+            color: #e67700;
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .card { box-shadow: none; border: 1px solid #ccc; }
+            button { display: none; }
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Print to PDF</button>
+
+    <div class="header">
+        <h1>🚀 MERN Stack Development Roadmap</h1>
+        <p><strong>Developer:</strong> Pramod Munnoli</p>
+        <div class="status">Development Progress: 85% - Advanced</div>
+    </div>
+
+    <div class="category-grid">
+        <div class="card">
+            <h2>🍃 MongoDB (Database)</h2>
+            <ul class="completed-list">
+                <li>Schema & Model Mapping</li>
+                <li>Mongoose Relationships & Populate</li>
+                <li>Advanced Validation Guardrails</li>
+                <li>Persistent CRUD Operations</li>
+            </ul>
+            <p><strong>Next Goals:</strong></p>
+            <ul class="next-list">
+                <li>Aggregation Framework</li>
+                <li>Database Indexing</li>
+                <li>ACID Transactions</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🚂 Express.js (Backend)</h2>
+            <ul class="completed-list">
+                <li>RESTful API Architecture</li>
+                <li>JWT & Passport.js Auth</li>
+                <li>MVC Pattern Implementation</li>
+                <li>Cloud-based File Uploads</li>
+            </ul>
+            <p><strong>Next Goals:</strong></p>
+            <ul class="next-list">
+                <li>Socket.io Real-time</li>
+                <li>Redis Caching</li>
+                <li>GraphQL APIs</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>⚛️ React (Frontend)</h2>
+            <ul class="completed-list">
+                <li>Tailwind CSS v4 & MUI</li>
+                <li>State & Props Mastery</li>
+                <li>React Router Management</li>
+                <li>Axios Interceptors / JWT</li>
+            </ul>
+            <p><strong>Next Goals:</strong></p>
+            <ul class="next-list">
+                <li>TypeScript Integration</li>
+                <li>Redux Toolkit / Zustand</li>
+                <li>Advanced Hooks (useMemo)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🌐 Node.js (Runtime)</h2>
+            <ul class="completed-list">
+                <li>CommonJS vs ESM Management</li>
+                <li>Process Env / Dotenv Security</li>
+                <li>Session & Cookie Security</li>
+                <li>Error Handling Utilities</li>
+            </ul>
+            <p><strong>Next Goals:</strong></p>
+            <ul class="next-list">
+                <li>Jest/Supertest Testing</li>
+                <li>Docker Containerization</li>
+                <li>CI/CD Deployment</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="priority-box">
+        <h2>🔥 Priority Learning Path (Top 4)</h2>
+        <div class="priority-item">
+            <b>1. TypeScript (Highest Priority):</b> Fundamental for modern industry roles. Standard for bug-free, scalable codebases.
+        </div>
+        <div class="priority-item">
+            <b>2. MongoDB Aggregation:</b> Advanced data processing (grouping, sorting, statistics) directly at the database level.
+        </div>
+        <div class="priority-item">
+            <b>3. Real-Time (Socket.io):</b> Essential for interactive apps (chat, live notifications, dashboards).
+        </div>
+        <div class="priority-item">
+            <b>4. State Management (Zustand):</b> Solving "prop-drilling" and managing complex application state efficiently.
+        </div>
+    </div>
+
+    <div class="resources">
+        <h2>🎥 Curated Learning Resources (Next Phase)</h2>
+        <a href="https://www.youtube.com/playlist?list=PLu71SKxNbfoBGh_8p_NS-ZAh6v7HhYqHW" class="resource-link" target="_blank">
+            <b>1. Backend Mastery - Hitesh Choudhary (Chai aur Code)</b>
+            Advanced MongoDB Aggregation, Production logic, and Professional structure.
+        </a>
+        <a href="https://www.youtube.com/watch?v=zvYua5rqguE" class="resource-link" target="_blank">
+            <b>2. Real-Time Systems - JS Mastery</b>
+            Building a Production Chat App with Socket.io and TypeScript.
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PL0Zuz27SZ-6P4dQUsoDatjEGpmBpcOW8V" class="resource-link" target="_blank">
+            <b>3. Professional MERN Essentials - Dave Gray</b>
+            Mastering Roles, Authentication, and Enterprise-grade state management.
+        </a>
+    </div>
+
+    <div class="footer">
+        <p>Generated by Antigravity AI Coding Assistant on April 9, 2026</p>
+    </div>
+</body>
+</html>
